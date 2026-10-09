@@ -1,0 +1,2248 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Pengembaraan Kata Nama Am dan Khas — Tahun 1 (Master Edition)</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Fredoka & Kanit for Cheerful Tropical Adventure Legibility -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700;800&family=Kanit:ital,wght@0,400;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            fredoka: ['Fredoka', 'cursive', 'sans-serif'],
+            kanit: ['Kanit', 'sans-serif'],
+          },
+          colors: {
+            jungleDeep: '#0b2b1a',
+            jungleEmerald: '#165b33',
+            jungleLeaf: '#2e8b57',
+            riverTurquoise: '#0ea5e9',
+            gemGold: '#f59e0b',
+            woodPlank: '#854d0e',
+            woodDark: '#451a03',
+            parchmentBg: '#fefce8',
+            amberGlow: '#d97706',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background: radial-gradient(circle at 50% 15%, #1e4620 0%, #0d2818 55%, #05130b 100%);
+      color: #1e293b;
+      font-family: 'Fredoka', cursive, sans-serif;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Papan Kayu Asli (Carved Wood Texture) */
+    .wood-board {
+      background: linear-gradient(180deg, #9a6538 0%, #78451f 50%, #542b10 100%);
+      border: 4px solid #361705;
+      border-radius: 20px;
+      box-shadow: 
+        inset 0 3px 5px rgba(255, 255, 255, 0.35),
+        inset 0 -4px 6px rgba(0, 0, 0, 0.65),
+        0 8px 24px rgba(0, 0, 0, 0.45);
+      position: relative;
+    }
+    .wood-board::before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 12px;
+      right: 12px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.28);
+      border-radius: 9999px;
+      pointer-events: none;
+    }
+
+    /* Butang Papan Kayu Interaktif */
+    .wood-btn {
+      background: linear-gradient(180deg, #b07d4b 0%, #8c572b 50%, #683916 100%);
+      border: 3px solid #361705;
+      border-radius: 16px;
+      box-shadow: 
+        inset 0 2px 3px rgba(255, 255, 255, 0.4),
+        0 5px 0 #2c1203,
+        0 8px 12px rgba(0,0,0,0.35);
+      transition: all 0.1s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transform: translateY(0);
+      text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.6);
+      color: #ffffff;
+      cursor: pointer;
+    }
+    .wood-btn:hover {
+      filter: brightness(1.08);
+      transform: translateY(-2px);
+      box-shadow: 
+        inset 0 2px 3px rgba(255, 255, 255, 0.4),
+        0 7px 0 #2c1203,
+        0 11px 16px rgba(0,0,0,0.4);
+    }
+    .wood-btn:active {
+      transform: translateY(4px);
+      box-shadow: 
+        inset 0 1px 2px rgba(0, 0, 0, 0.4),
+        0 1px 0 #2c1203,
+        0 3px 6px rgba(0,0,0,0.3);
+    }
+
+    /* Kertas Parasyut / Parchment Paper */
+    .parchment {
+      background: #fffdf5;
+      background-image: radial-gradient(#ecd7b5 8%, transparent 8%);
+      background-size: 16px 16px;
+      border: 4px solid #9c6c44;
+      border-radius: 22px;
+      box-shadow: 
+        inset 0 0 25px rgba(181, 136, 99, 0.35),
+        0 10px 25px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Efek Gem Glow & Shimmer */
+    .gem-glow {
+      filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.75));
+    }
+    @keyframes pulseGem {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.6)); }
+      50% { transform: scale(1.06); filter: drop-shadow(0 0 14px rgba(251, 191, 36, 1)); }
+    }
+    .gem-pulse {
+      animation: pulseGem 2.2s infinite ease-in-out;
+    }
+
+    /* Animasi Terapung Cikgu Rimba */
+    @keyframes floatRimba {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(1.2deg); }
+    }
+    .float-rimba {
+      animation: floatRimba 3.6s ease-in-out infinite;
+    }
+
+    /* Animasi Bintang Muncul */
+    @keyframes starPop {
+      0% { transform: scale(0.2) rotate(-40deg); opacity: 0; }
+      75% { transform: scale(1.25) rotate(10deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+    .star-pop {
+      animation: starPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    /* Screen Shake Ringan */
+    @keyframes gentleShake {
+      0%, 100% { transform: translate(0, 0); }
+      20% { transform: translate(-6px, 2px); }
+      40% { transform: translate(6px, -2px); }
+      60% { transform: translate(-4px, -1px); }
+      80% { transform: translate(4px, 1px); }
+    }
+    .shake {
+      animation: gentleShake 0.38s ease-in-out;
+    }
+
+    /* Canvas Latar Belakang Tropika */
+    #ambientCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Scrollbar Kemas */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 99px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #9a6538;
+      border-radius: 99px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="relative flex flex-col justify-between items-center min-h-[100dvh]">
+  <!-- Background Canvas: Dedalu, Daun Gugur & Kunang-kunang Hutan -->
+  <canvas id="ambientCanvas"></canvas>
+
+  <!-- WRAPPER APLIKASI (Mobile First -> Tablet -> Desktop) -->
+  <div class="relative z-10 w-full max-w-4xl flex-1 flex flex-col justify-between p-2.5 sm:p-4 text-slate-800">
+
+    <!-- BAR NAVIGASI ATAS & KAWALAN AUDIO -->
+    <header class="w-full flex items-center justify-between gap-2 mb-2 bg-woodDark/85 px-3 py-2 rounded-2xl border-2 border-woodPlank shadow-xl backdrop-blur-sm">
+      <!-- Logo & Kembali ke Peta -->
+      <button onclick="app.showScreen('map')" class="flex items-center gap-2 group focus:outline-none" title="Peta Pengembaraan">
+        <div class="w-10 h-10 rounded-xl bg-gemGold border-2 border-woodDark flex items-center justify-center text-xl shadow-md group-hover:scale-105 transition-transform">
+          🧭
+        </div>
+        <div class="text-left">
+          <span class="block text-[10px] sm:text-xs font-kanit font-extrabold uppercase text-amber-300 drop-shadow">
+            BM TAHUN 1 • MISI RIMBA
+          </span>
+          <span class="block text-xs sm:text-base font-extrabold text-white leading-tight">
+            PENGEMBARAAN KATA NAMA
+          </span>
+        </div>
+      </button>
+
+      <!-- Status Skor, Bintang, Permata & Audio HUD -->
+      <div class="flex items-center gap-1.5 sm:gap-2.5">
+        <!-- Skor Mini -->
+        <div class="hidden sm:flex items-center gap-1 bg-black/40 px-2.5 py-1 rounded-xl border border-amber-400/40 text-amber-300 font-kanit text-xs font-bold">
+          <span>⭐</span>
+          <span id="navScoreText">0</span>
+        </div>
+
+        <!-- Permata Bahasa -->
+        <div class="flex items-center gap-1 bg-black/40 px-2 sm:px-2.5 py-1 rounded-xl border border-sky-400/40 text-sky-300 font-kanit text-xs font-bold">
+          <span class="gem-glow">💎</span>
+          <span id="navGemsText">0</span>
+        </div>
+
+        <!-- Butang Muzik Latar -->
+        <button id="musicToggleBtn" onclick="audioEngine.toggleMusic()" class="p-1.5 sm:px-2.5 sm:py-1 rounded-xl bg-emerald-800 hover:bg-emerald-700 text-white border border-emerald-400 text-xs font-bold flex items-center gap-1 shadow transition active:scale-95" title="Muzik Latar (Buka/Tutup)">
+          <span id="musicIcon">🎵</span>
+          <span class="hidden md:inline font-kanit">MUZIK</span>
+        </button>
+
+        <!-- Butang Kesan Bunyi -->
+        <button id="sfxToggleBtn" onclick="audioEngine.toggleSfx()" class="p-1.5 sm:px-2.5 sm:py-1 rounded-xl bg-amber-800 hover:bg-amber-700 text-amber-200 border border-amber-400 text-xs font-bold flex items-center gap-1 shadow transition active:scale-95" title="Kesan Bunyi SFX">
+          <span id="sfxIcon">🔊</span>
+          <span class="hidden md:inline font-kanit">BUNYI</span>
+        </button>
+
+        <!-- Butang Info BBM -->
+        <button onclick="app.showScreen('infoBbm')" class="p-1.5 sm:px-2.5 sm:py-1 rounded-xl bg-woodPlank hover:bg-woodPlank/90 text-amber-100 border border-amber-300 text-xs font-bold flex items-center gap-1 shadow transition active:scale-95" title="Dokumentasi Info BBM">
+          <span>📋</span>
+          <span class="hidden sm:inline font-kanit">INFO BBM</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- KAWASAN KANDUNGAN INTERAKTIF UTAMA (DINAMIK) -->
+    <main id="gameViewport" class="w-full flex-1 flex flex-col items-center justify-center relative min-h-[520px]">
+      <!-- Skrin dimuatkan secara dinamik: Home, Map, Misi 1-9, BBM, Manual, Tamat -->
+    </main>
+
+    <!-- FOOTER STATUS & TIP PINTAR -->
+    <footer class="w-full mt-2 text-center text-white/90 text-[11px] sm:text-xs font-kanit py-1 drop-shadow flex flex-wrap items-center justify-between px-2 bg-black/30 rounded-xl">
+      <span class="text-amber-200 font-bold">💡 FORMULA RIMBA: AM = UMUM | KHAS = KHUSUS (HURUF BESAR)</span>
+      <span class="hidden sm:inline text-emerald-300">SP 5.1.1 (i) & (ii) • DSKP Bahasa Melayu Tahun 1</span>
+    </footer>
+  </div>
+
+  <!-- MODAL / PETI GANJARAN POPUP OVERLAY -->
+  <div id="rewardModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-3">
+    <div id="rewardModalContent" class="parchment p-5 sm:p-7 max-w-sm w-full text-center relative shadow-2xl pop-anim">
+      <!-- Diisi oleh JS -->
+    </div>
+  </div>
+
+  <script>
+    /**
+     * PROCEDURAL WEB AUDIO ENGINE
+     * Synthesizes peaceful jungle exploration melodies, rhythmic chords, ambient flute tones,
+     * button clicks, star collection fanfares, chest unlocks, and boss impacts without any external files.
+     */
+    class ProceduralAudioEngine {
+      constructor() {
+        this.ctx = null;
+        this.isMusicOn = false;
+        this.isSfxOn = true;
+        this.musicInterval = null;
+        this.stepCounter = 0;
+        this.melodyNotes = [
+          // Pentatonic pleasant jungle adventure sequence (C Major / A Minor Pentatonic)
+          261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25
+        ];
+        this.currentMood = 'peaceful'; // 'peaceful', 'urgent', 'victory'
+      }
+
+      initCtx() {
+        if (!this.ctx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) {
+            this.ctx = new AudioContextClass();
+          }
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+
+      toggleMusic() {
+        this.initCtx();
+        this.isMusicOn = !this.isMusicOn;
+        document.getElementById('musicIcon').textContent = this.isMusicOn ? '🎵' : '🔇';
+        if (this.isMusicOn) {
+          this.startBgm();
+        } else {
+          this.stopBgm();
+        }
+        this.playClick();
+      }
+
+      toggleSfx() {
+        this.isSfxOn = !this.isSfxOn;
+        document.getElementById('sfxIcon').textContent = this.isSfxOn ? '🔊' : '🔈';
+        if (this.isSfxOn) this.playClick();
+      }
+
+      startBgm() {
+        if (!this.isMusicOn || this.musicInterval) return;
+        this.initCtx();
+        if (!this.ctx) return;
+
+        // Loop melodi berirama setiap 360ms
+        this.musicInterval = setInterval(() => {
+          if (!this.isMusicOn || !this.ctx) return;
+          this.stepCounter++;
+
+          const now = this.ctx.currentTime;
+          // Bass drone lembut
+          if (this.stepCounter % 8 === 0) {
+            this.synthTone(130.81, 0.45, 'triangle', 0.05, now);
+          }
+
+          // Arpeggio melodi pengembaraan
+          const pattern = [0, 2, 4, 3, 5, 4, 2, 1];
+          const noteIndex = pattern[this.stepCounter % pattern.length];
+          const freq = this.melodyNotes[noteIndex % this.melodyNotes.length];
+
+          // Bunyi seruling lembut
+          this.synthTone(freq, 0.3, 'sine', 0.035, now);
+
+          // Pukulan dram kayu lembut
+          if (this.stepCounter % 4 === 0) {
+            this.synthPercussion(now, 90);
+          }
+        }, 380);
+      }
+
+      stopBgm() {
+        if (this.musicInterval) {
+          clearInterval(this.musicInterval);
+          this.musicInterval = null;
+        }
+      }
+
+      synthTone(freq, duration, type, vol, time) {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = type || 'sine';
+        osc.frequency.setValueAtTime(freq, time);
+        gain.gain.setValueAtTime(vol, time);
+        gain.gain.exponentialRampToValueAtTime(0.0001, time + duration);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(time);
+        osc.stop(time + duration);
+      }
+
+      synthPercussion(time, pitch) {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(pitch, time);
+        osc.frequency.exponentialRampToValueAtTime(30, time + 0.12);
+        gain.gain.setValueAtTime(0.06, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.12);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(time);
+        osc.stop(time + 0.12);
+      }
+
+      playClick() {
+        if (!this.isSfxOn) return;
+        this.initCtx();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        this.synthTone(360, 0.06, 'triangle', 0.18, now);
+      }
+
+      playCorrect() {
+        if (!this.isSfxOn) return;
+        this.initCtx();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        // Major Arpeggio Kemenangan (C5 -> E5 -> G5 -> C6)
+        [523.25, 659.25, 783.99, 1046.50].forEach((f, idx) => {
+          this.synthTone(f, 0.28, 'sine', 0.16, now + idx * 0.08);
+        });
+      }
+
+      playWrong() {
+        if (!this.isSfxOn) return;
+        this.initCtx();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        [240, 190].forEach((f, idx) => {
+          this.synthTone(f, 0.18, 'sawtooth', 0.12, now + idx * 0.12);
+        });
+      }
+
+      playGemPickup() {
+        if (!this.isSfxOn) return;
+        this.initCtx();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        [880, 1174.66, 1760].forEach((f, idx) => {
+          this.synthTone(f, 0.22, 'sine', 0.15, now + idx * 0.06);
+        });
+      }
+
+      playChestOpen() {
+        if (!this.isSfxOn) return;
+        this.initCtx();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        [329.63, 392, 523.25, 659.25, 783.99, 1046.5].forEach((f, idx) => {
+          this.synthTone(f, 0.35, 'triangle', 0.16, now + idx * 0.07);
+        });
+      }
+
+      playVictory() {
+        if (!this.isSfxOn) return;
+        this.initCtx();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const notes = [523.25, 659.25, 783.99, 880, 1046.5, 1318.51];
+        notes.forEach((f, idx) => {
+          this.synthTone(f, 0.45, 'triangle', 0.2, now + idx * 0.11);
+        });
+      }
+    }
+
+    const audioEngine = new ProceduralAudioEngine();
+  </script>
+
+  <script>
+    /**
+     * BANK PERKATAAN & DATA MISI LENGKAP
+     * Menepati DSKP Bahasa Melayu Tahun 1 dengan penekanan eksplisit:
+     * Kata Nama Am (huruf kecil, nama umum) & Kata Nama Khas (huruf besar, nama khusus).
+     */
+    const GAME_DATA = {
+      // 5 Kawasan Utama Dunia Rimba
+      zones: [
+        {
+          id: 'zone1',
+          name: 'Kem Permulaan',
+          desc: 'Pengenalan & Misi 1 (Kenali Kata Nama)',
+          icon: '⛺',
+          requiredStars: 0,
+          color: 'from-amber-600 to-amber-800'
+        },
+        {
+          id: 'zone2',
+          name: 'Hutan Kata Nama Am',
+          desc: 'Misi 2 (Cari Harta Karun) & Misi 3 (Asingkan Kad)',
+          icon: '🌳',
+          requiredStars: 2,
+          color: 'from-emerald-600 to-emerald-800'
+        },
+        {
+          id: 'zone3',
+          name: 'Lembah Kata Nama Khas',
+          desc: 'Misi 4 (Jejak Kata) & Misi 5 (Detektif Huruf Besar)',
+          icon: '🏞️',
+          requiredStars: 5,
+          color: 'from-cyan-600 to-cyan-800'
+        },
+        {
+          id: 'zone4',
+          name: 'Sungai Cabaran Bahasa',
+          desc: 'Misi 6 (Cabaran Pantas) & Misi 7 (Cabaran Ayat)',
+          icon: '🌊',
+          requiredStars: 8,
+          color: 'from-blue-600 to-blue-800'
+        },
+        {
+          id: 'zone5',
+          name: 'Istana Permata Bahasa',
+          desc: 'Misi 8 (Bonus Round) & Misi 9 (Boss Terakhir)',
+          icon: '🏰',
+          requiredStars: 12,
+          color: 'from-purple-600 to-purple-800'
+        }
+      ],
+
+      // Bank Soalan Terperinci Mengikut Misi
+      misi1_items: [
+        { word: 'guru', category: 'AM', emoji: '👨‍🏫', hint: 'Panggilan umum bagi orang yang mengajar di sekolah.', explanation: '“guru” ialah Kata Nama Am kerana merupakan panggilan umum bagi manusia.' },
+        { word: 'Faris', category: 'KHAS', emoji: '👦', hint: 'Nama khusus bagi seorang kawan yang bermula dengan huruf besar.', explanation: '“Faris” ialah Kata Nama Khas kerana merujuk kepada nama orang secara khusus.' },
+        { word: 'sekolah', category: 'AM', emoji: '🏫', hint: 'Tempat umum untuk murid belajar dan menimba ilmu.', explanation: '“sekolah” ialah Kata Nama Am kerana nama umum bagi tempat.' },
+        { word: 'Malaysia', category: 'KHAS', emoji: '🇲🇾', hint: 'Nama khusus bagi negara kita yang berdaulat.', explanation: '“Malaysia” ialah Kata Nama Khas kerana nama khusus bagi negara.' },
+        { word: 'kucing', category: 'AM', emoji: '🐱', hint: 'Panggilan umum untuk haiwan comel berbulu.', explanation: '“kucing” ialah Kata Nama Am kerana menyebut haiwan secara umum.' },
+        { word: 'Si Tompok', category: 'KHAS', emoji: '🐈', hint: 'Nama gelaran khas bagi seekor kucing kesayangan.', explanation: '“Si Tompok” ialah Kata Nama Khas kerana nama khusus haiwan peliharaan.' }
+      ],
+
+      misi2_sets: [
+        {
+          instruction: 'Cari dan kumpul TIGA Kata Nama Khas untuk membuka peti harta karun!',
+          cards: [
+            { text: 'Ahmad', isTarget: true, type: 'KHAS' },
+            { text: 'buku', isTarget: false, type: 'AM' },
+            { text: 'Johor Bahru', isTarget: true, type: 'KHAS' },
+            { text: 'sungai', isTarget: false, type: 'AM' },
+            { text: 'kereta', isTarget: false, type: 'AM' },
+            { text: 'Sungai Muar', isTarget: true, type: 'KHAS' }
+          ],
+          needed: 3
+        }
+      ],
+
+      misi3_cards: [
+        { word: 'murid', category: 'AM', emoji: '👧' },
+        { word: 'Siti', category: 'KHAS', emoji: '🧕' },
+        { word: 'pensel', category: 'AM', emoji: '✏️' },
+        { word: 'Proton Saga', category: 'KHAS', emoji: '🚗' },
+        { word: 'masjid', category: 'AM', emoji: '🕌' },
+        { word: 'Masjid Sultan Abu Bakar', category: 'KHAS', emoji: '🏛️' }
+      ],
+
+      misi4_questions: [
+        {
+          imageEmoji: '🏫',
+          title: 'Bangunan Sekolah Pintar',
+          context: 'Ini ialah tempat murid belajar bernama Sekolah Rendah Agama Bersepadu.',
+          question: 'Pilih nama khusus (Kata Nama Khas) yang tepat bagi tempat ini:',
+          options: ['sekolah', 'Sekolah Rendah Agama Bersepadu', 'bangunan'],
+          correct: 'Sekolah Rendah Agama Bersepadu',
+          explanation: '“Sekolah Rendah Agama Bersepadu” ialah Kata Nama Khas kerana ia nama spesifik sekolah tersebut.'
+        },
+        {
+          imageEmoji: '🏞️',
+          title: 'Sungai yang Mengalir',
+          context: 'Aliran air tawar yang terkenal di negeri Johor.',
+          question: 'Pilih Kata Nama Am (nama umum) yang terdapat dalam gambar:',
+          options: ['Sungai Muar', 'sungai', 'Johor'],
+          correct: 'sungai',
+          explanation: '“sungai” ialah Kata Nama Am kerana ia panggilan umum bagi aliran air semula jadi.'
+        }
+      ],
+
+      misi5_sentences: [
+        {
+          wrong: 'ahmad pergi melawat bandar kuala lumpur.',
+          correctWords: ['Ahmad', 'Kuala', 'Lumpur'],
+          clickableWords: ['ahmad', 'pergi', 'melawat', 'bandar', 'kuala', 'lumpur'],
+          fixMapping: { 'ahmad': 'Ahmad', 'kuala': 'Kuala', 'lumpur': 'Lumpur' },
+          explanation: '“Ahmad” dan “Kuala Lumpur” ialah Kata Nama Khas, maka huruf pertamanya wajib ditulis dengan huruf besar.'
+        },
+        {
+          wrong: 'kucing adik bernama si tompok.',
+          correctWords: ['Si', 'Tompok'],
+          clickableWords: ['kucing', 'adik', 'bernama', 'si', 'tompok'],
+          fixMapping: { 'si': 'Si', 'tompok': 'Tompok' },
+          explanation: '“Si Tompok” ialah nama khas untuk haiwan, jadi huruf “S” dan “T” perlu huruf besar.'
+        }
+      ],
+
+      misi6_speedPool: [
+        { word: 'meja', cat: 'AM' },
+        { word: 'Aiman', cat: 'KHAS' },
+        { word: 'taman', cat: 'AM' },
+        { word: 'Taman Merdeka', cat: 'KHAS' },
+        { word: 'negeri', cat: 'AM' },
+        { word: 'Pulau Pinang', cat: 'KHAS' },
+        { word: 'kerusi', cat: 'AM' },
+        { word: 'Gunung Ledang', cat: 'KHAS' }
+      ],
+
+      misi7_sentenceQuiz: [
+        {
+          sentence: 'Ali membaca sebuah buku cerita di bawah pokok.',
+          question: 'Apakah Kata Nama Khas dalam ayat di atas?',
+          options: ['Ali', 'buku', 'pokok', 'membaca'],
+          correct: 'Ali',
+          explanation: '“Ali” ialah nama khusus bagi manusia dan bermula dengan huruf besar.'
+        },
+        {
+          sentence: 'Pak Cik memandu kereta ke Johor Bahru.',
+          question: 'Apakah Kata Nama Am bagi benda dalam ayat ini?',
+          options: ['memandu', 'kereta', 'Johor Bahru', 'Pak Cik'],
+          correct: 'kereta',
+          explanation: '“kereta” ialah nama benda secara umum (Kata Nama Am).'
+        }
+      ],
+
+      misi8_chests: {
+        bronze: {
+          title: 'Peti Gangsa',
+          icon: '🥉',
+          questions: [
+            { q: '“sekolah” ialah...', opt: ['Kata Nama Am', 'Kata Nama Khas'], ans: 'Kata Nama Am' },
+            { q: '“Malaysia” ialah...', opt: ['Kata Nama Am', 'Kata Nama Khas'], ans: 'Kata Nama Khas' },
+            { q: 'Kata Nama Khas sentiasa ditulis dengan...', opt: ['Huruf Kecil', 'Huruf Besar'], ans: 'Huruf Besar' }
+          ],
+          rewardGems: 3,
+          rewardBadge: 'Penyelidik Gangsa'
+        },
+        silver: {
+          title: 'Peti Perak',
+          icon: '🥈',
+          questions: [
+            { q: 'Manakah Kata Nama Khas bagi haiwan?', opt: ['anjing', 'Si Tompok'], ans: 'Si Tompok' },
+            { q: 'Manakah Kata Nama Am bagi tempat?', opt: ['bandar', 'Johor Bahru'], ans: 'bandar' },
+            { q: '“Proton Saga” merujuk kepada...', opt: ['Nama umum kenderaan', 'Nama khusus jenama kereta'], ans: 'Nama khusus jenama kereta' }
+          ],
+          rewardGems: 5,
+          rewardBadge: 'Pakar Perak'
+        },
+        gold: {
+          title: 'Peti Emas',
+          icon: '🥇',
+          questions: [
+            { q: 'Pilih ayat dengan huruf besar yang betul:', opt: ['siti tinggal di johor.', 'Siti tinggal di Johor.'], ans: 'Siti tinggal di Johor.' },
+            { q: 'AM bermaksud...', opt: ['UMUM', 'KHUSUS'], ans: 'UMUM' },
+            { q: 'KHAS bermaksud...', opt: ['UMUM', 'KHUSUS'], ans: 'KHUSUS' }
+          ],
+          rewardGems: 8,
+          rewardBadge: 'Wira Emas Rimba'
+        }
+      },
+
+      misi9_bossRounds: [
+        { word: 'guru', type: 'AM', hint: 'Panggilan umum bagi pendidik.' },
+        { word: 'Ahmad', type: 'KHAS', hint: 'Nama khusus bagi seorang lelaki.' },
+        { word: 'sungai', type: 'AM', hint: 'Laluan air semula jadi secara am.' },
+        { word: 'Sungai Muar', type: 'KHAS', hint: 'Nama khusus sebuah sungai bersejarah.' },
+        { word: 'kucing', type: 'AM', hint: 'Haiwan mamalia kecil mengeow.' },
+        { word: 'Si Tompok', type: 'KHAS', hint: 'Gelaran nama tertentu seekor kucing.' },
+        { word: 'kereta', type: 'AM', hint: 'Kenderaan beroda empat secara am.' },
+        { word: 'Proton Saga', type: 'KHAS', hint: 'Jenama kereta buatan Malaysia.' },
+        { word: 'bandar', type: 'AM', hint: 'Pusat tumpuan ramai penduduk.' },
+        { word: 'Johor Bahru', type: 'KHAS', hint: 'Nama bandar raya di selatan tanah air.' }
+      ],
+
+      // Senarai Semua 32 Perkataan untuk Mod Ulang Kaji Interaktif
+      revisionList: [
+        { word: 'guru', cat: 'AM', exp: 'Nama panggilan manusia secara umum.' },
+        { word: 'murid', cat: 'AM', exp: 'Orang yang belajar di sekolah secara umum.' },
+        { word: 'sekolah', cat: 'AM', exp: 'Bangunan tempat menuntut ilmu secara am.' },
+        { word: 'buku', cat: 'AM', exp: 'Benda bercetak untuk dibaca.' },
+        { word: 'pensel', cat: 'AM', exp: 'Alat tulis berkarbon secara umum.' },
+        { word: 'meja', cat: 'AM', exp: 'Perabot berkaki untuk meletakkan barang.' },
+        { word: 'kerusi', cat: 'AM', exp: 'Perabot tempat duduk secara umum.' },
+        { word: 'kucing', cat: 'AM', exp: 'Haiwan mamalia berbulu comel.' },
+        { word: 'anjing', cat: 'AM', exp: 'Haiwan penjaga rumah secara umum.' },
+        { word: 'bandar', cat: 'AM', exp: 'Kawasan petempatan besar secara am.' },
+        { word: 'negeri', cat: 'AM', exp: 'Wilayah pentadbiran secara umum.' },
+        { word: 'sungai', cat: 'AM', exp: 'Aliran air tawar semula jadi.' },
+        { word: 'masjid', cat: 'AM', exp: 'Tempat ibadat umat Islam secara am.' },
+        { word: 'taman', cat: 'AM', exp: 'Kawasan riadah rekreasi awam.' },
+        { word: 'kereta', cat: 'AM', exp: 'Kenderaan enjin beroda empat.' },
+        { word: 'Faris', cat: 'KHAS', exp: 'Nama khusus bagi seorang lelaki.' },
+        { word: 'Ahmad', cat: 'KHAS', exp: 'Nama khusus seorang manusia (huruf besar “A”).' },
+        { word: 'Siti', cat: 'KHAS', exp: 'Nama khusus bagi seorang perempuan.' },
+        { word: 'Aiman', cat: 'KHAS', exp: 'Nama khusus seorang murid lelaki.' },
+        { word: 'Malaysia', cat: 'KHAS', exp: 'Nama khusus sebuah negara berdaulat.' },
+        { word: 'Johor', cat: 'KHAS', exp: 'Nama khusus bagi negeri di selatan.' },
+        { word: 'Johor Bahru', cat: 'KHAS', exp: 'Nama khusus bandar raya ibu negeri Johor.' },
+        { word: 'Kuala Lumpur', cat: 'KHAS', exp: 'Nama khusus ibu negara Malaysia.' },
+        { word: 'Sungai Muar', cat: 'KHAS', exp: 'Nama khusus sebatang sungai bersejarah.' },
+        { word: 'Masjid Sultan Abu Bakar', cat: 'KHAS', exp: 'Nama khusus sebuah masjid bersejarah.' },
+        { word: 'Sekolah Rendah Agama Bersepadu', cat: 'KHAS', exp: 'Nama khusus institusi sekolah.' },
+        { word: 'Si Tompok', cat: 'KHAS', exp: 'Nama khusus bagi kucing bertompok.' },
+        { word: 'Proton Saga', cat: 'KHAS', exp: 'Nama khusus bagi model kereta nasional.' },
+        { word: 'Taman Merdeka', cat: 'KHAS', exp: 'Nama khusus kawasan taman awam.' },
+        { word: 'Pulau Pinang', cat: 'KHAS', exp: 'Nama khusus bagi sebuah negeri pulau.' },
+        { word: 'Gunung Ledang', cat: 'KHAS', exp: 'Nama khusus gunung legenda di Johor.' }
+      ]
+    };
+  </script>
+
+  <script>
+    /**
+     * STATE PENGURUSAN PERMAINAN TERPUSAT
+     */
+    class AdventureApp {
+      constructor() {
+        this.score = 0;
+        this.gems = 0;
+        this.stars = 0;
+        this.combo = 1;
+        this.maxCombo = 1;
+        this.currentZoneIndex = 0;
+        this.unlockedZones = ['zone1'];
+        this.completedMissions = [];
+        this.badges = ['Penjelajah Baharu'];
+        this.selectedBbmTab = 'sp';
+        this.characterDialogue = 'Hai, penjelajah cilik! Jom kita mulakan pengembaraan mencari Permata Bahasa!';
+      }
+
+      init() {
+        this.updateHUD();
+        this.showScreen('home');
+      }
+
+      updateHUD() {
+        document.getElementById('navScoreText').textContent = this.score;
+        document.getElementById('navGemsText').textContent = this.gems;
+      }
+
+      addScore(pts) {
+        const added = pts * this.combo;
+        this.score += added;
+        this.updateHUD();
+        return added;
+      }
+
+      incrementCombo() {
+        this.combo = Math.min(this.combo + 1, 5);
+        if (this.combo > this.maxCombo) this.maxCombo = this.combo;
+      }
+
+      resetCombo() {
+        this.combo = 1;
+      }
+
+      addGems(amount) {
+        this.gems += amount;
+        this.updateHUD();
+        audioEngine.playGemPickup();
+      }
+
+      addStars(count) {
+        this.stars += count;
+        // Buka kawasan baharu berasaskan jumlah bintang terkumpul
+        GAME_DATA.zones.forEach(z => {
+          if (this.stars >= z.requiredStars && !this.unlockedZones.includes(z.id)) {
+            this.unlockedZones.push(z.id);
+            this.showCharacterFeedback(`🎉 Tahniah! Kamu berjaya membuka kawasan baharu: ${z.name}!`);
+          }
+        });
+      }
+
+      showCharacterFeedback(text) {
+        this.characterDialogue = text;
+        const dialogueEl = document.getElementById('rimbaSpeechBox');
+        if (dialogueEl) {
+          dialogueEl.textContent = text;
+          dialogueEl.classList.add('pop-anim');
+          setTimeout(() => dialogueEl.classList.remove('pop-anim'), 400);
+        }
+      }
+
+      showModal(title, icon, message, buttonText, callback) {
+        const modal = document.getElementById('rewardModal');
+        const content = document.getElementById('rewardModalContent');
+        content.innerHTML = `
+          <div class="text-5xl my-2 float-rimba">${icon}</div>
+          <h3 class="text-2xl font-extrabold text-woodDark mb-1">${title}</h3>
+          <p class="text-sm font-kanit text-slate-700 mb-4">${message}</p>
+          <button id="modalActionBtn" class="wood-btn w-full py-3 text-base font-bold">
+            ${buttonText}
+          </button>
+        `;
+        modal.classList.remove('hidden');
+        document.getElementById('modalActionBtn').onclick = () => {
+          modal.classList.add('hidden');
+          audioEngine.playClick();
+          if (callback) callback();
+        };
+      }
+
+      // Router Antaramuka Skrin
+      showScreen(screenId, params = {}) {
+        audioEngine.playClick();
+        const viewport = document.getElementById('gameViewport');
+        viewport.innerHTML = '';
+
+        switch (screenId) {
+          case 'home':
+            this.renderHomeScreen(viewport);
+            break;
+          case 'map':
+            this.renderMapScreen(viewport);
+            break;
+          case 'infoBbm':
+            this.renderInfoBbmScreen(viewport);
+            break;
+          case 'manual':
+            this.renderManualScreen(viewport);
+            break;
+          case 'revision':
+            this.renderRevisionScreen(viewport);
+            break;
+          case 'misi1':
+            this.renderMisi1(viewport);
+            break;
+          case 'misi2':
+            this.renderMisi2(viewport);
+            break;
+          case 'misi3':
+            this.renderMisi3(viewport);
+            break;
+          case 'misi4':
+            this.renderMisi4(viewport);
+            break;
+          case 'misi5':
+            this.renderMisi5(viewport);
+            break;
+          case 'misi6':
+            this.renderMisi6(viewport);
+            break;
+          case 'misi7':
+            this.renderMisi7(viewport);
+            break;
+          case 'misi8':
+            this.renderMisi8(viewport);
+            break;
+          case 'misi9':
+            this.renderMisi9(viewport);
+            break;
+          case 'victory':
+            this.renderVictoryScreen(viewport);
+            break;
+          default:
+            this.renderHomeScreen(viewport);
+        }
+      }
+    }
+
+    const app = new AdventureApp();
+  </script>
+
+  <script>
+    AdventureApp.prototype.renderHomeScreen = function(container) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'w-full flex flex-col items-center justify-center gap-3 py-2 text-center';
+
+      wrapper.innerHTML = `
+        <!-- Watak Pembimbing Cikgu Rimba -->
+        <div class="relative w-28 h-28 sm:w-36 sm:h-36 mb-1 float-rimba">
+          <div class="absolute inset-0 rounded-full bg-amber-400/30 blur-2xl"></div>
+          <div class="w-full h-full rounded-3xl bg-gradient-to-b from-amber-300 via-amber-400 to-amber-600 border-4 border-woodDark flex flex-col items-center justify-center text-5xl sm:text-7xl shadow-2xl relative overflow-hidden">
+            <span>🤠</span>
+            <span class="absolute bottom-1 right-2 text-2xl">🧭</span>
+            <span class="absolute top-1 left-2 text-xl">🌿</span>
+          </div>
+        </div>
+
+        <!-- Papan Tanda Tajuk Utama -->
+        <div class="wood-board px-6 sm:px-10 py-4 max-w-lg shadow-2xl transform -rotate-1 hover:rotate-0 transition-transform">
+          <div class="text-[10px] sm:text-xs font-kanit font-extrabold uppercase tracking-widest text-amber-300 drop-shadow">
+            DUNIA PENGEMBARAAN BAHASA MELAYU
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-extrabold text-white tracking-wide leading-tight drop-shadow-[0_4px_6px_rgba(0,0,0,0.8)]">
+            PENGEMBARAAN<br><span class="text-amber-300">KATA NAMA AM & KHAS</span>
+          </h1>
+          <p class="text-xs sm:text-sm font-kanit font-semibold text-emerald-100 mt-1">
+            Bahasa Melayu Tahun 1 • Teroka, Kumpul Permata & Kuasai Tatabahasa!
+          </p>
+        </div>
+
+        <!-- Kotak Dialog Cikgu Rimba -->
+        <div class="w-full max-w-md bg-amber-50/95 border-2 border-woodPlank px-4 py-2.5 rounded-2xl shadow-md text-xs sm:text-sm font-kanit text-woodDark flex items-center gap-2.5">
+          <span class="text-2xl">💬</span>
+          <span class="font-bold text-left">${this.characterDialogue}</span>
+        </div>
+
+        <!-- Butang Pilihan Tindakan Utama -->
+        <div class="w-full max-w-sm flex flex-col gap-2.5 mt-2">
+          <!-- Butang 1: PETA PENGEMBARAAN -->
+          <button onclick="app.showScreen('map')" class="wood-btn py-3.5 px-6 text-white text-lg sm:text-xl font-bold flex items-center justify-between group">
+            <span class="flex items-center gap-2.5">
+              <span class="text-2xl group-hover:scale-125 transition-transform">🗺️</span>
+              <span>PETA PENGEMBARAAN</span>
+            </span>
+            <span class="text-xs font-kanit bg-amber-500/40 text-amber-100 px-2.5 py-1 rounded-full border border-amber-300/40">
+              Mula Misi ➔
+            </span>
+          </button>
+
+          <!-- Butang 2: ULANG KAJI PERKATAAN -->
+          <button onclick="app.showScreen('revision')" class="wood-btn py-3 px-6 text-white text-base sm:text-lg font-bold flex items-center justify-between group">
+            <span class="flex items-center gap-2.5">
+              <span class="text-2xl group-hover:scale-125 transition-transform">📚</span>
+              <span>ULANG KAJI PERKATAAN</span>
+            </span>
+            <span class="text-xs font-kanit bg-emerald-500/40 text-emerald-100 px-2.5 py-1 rounded-full border border-emerald-300/40">
+              32 Perkataan
+            </span>
+          </button>
+
+          <!-- Butang 3: MANUAL PENGGUNA -->
+          <button onclick="app.showScreen('manual')" class="wood-btn py-2.5 px-6 text-white text-sm sm:text-base font-bold flex items-center justify-between group">
+            <span class="flex items-center gap-2.5">
+              <span class="text-xl group-hover:scale-125 transition-transform">📖</span>
+              <span>PANDUAN 7 LANGKAH</span>
+            </span>
+            <span class="text-xs font-kanit bg-amber-400/30 text-amber-200 px-2.5 py-0.5 rounded-full border border-amber-300/30">
+              Tahun 1
+            </span>
+          </button>
+        </div>
+      `;
+
+      container.appendChild(wrapper);
+    };
+
+    AdventureApp.prototype.renderMapScreen = function(container) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'w-full max-w-2xl parchment p-4 sm:p-6 shadow-2xl pop-anim flex flex-col gap-4';
+
+      let zoneCardsHtml = '';
+      GAME_DATA.zones.forEach((zone, idx) => {
+        const isUnlocked = this.unlockedZones.includes(zone.id);
+        const lockBadge = isUnlocked 
+          ? `<span class="bg-emerald-600 text-white text-xs px-2.5 py-1 rounded-full font-bold">TERBUKA</span>` 
+          : `<span class="bg-slate-700 text-amber-300 text-xs px-2.5 py-1 rounded-full font-bold">🔒 Perlu ⭐ ${zone.requiredStars}</span>`;
+
+        zoneCardsHtml += `
+          <div class="relative overflow-hidden rounded-2xl border-3 border-woodPlank p-3.5 flex items-center justify-between bg-gradient-to-r ${zone.color} text-white shadow-md transition-all ${isUnlocked ? 'hover:scale-[1.01]' : 'opacity-65 grayscale'}">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-xl bg-white/20 border border-white/40 flex items-center justify-center text-3xl">
+                ${zone.icon}
+              </div>
+              <div class="text-left">
+                <div class="text-[10px] font-kanit font-extrabold uppercase tracking-wider text-amber-300">KAWASAN ${idx + 1}</div>
+                <h3 class="text-base sm:text-lg font-extrabold leading-tight">${zone.name}</h3>
+                <p class="text-xs text-white/90 font-kanit">${zone.desc}</p>
+              </div>
+            </div>
+            
+            <div class="flex flex-col items-end gap-1.5 shrink-0">
+              ${lockBadge}
+              ${isUnlocked ? `
+                <button onclick="app.launchZone('${zone.id}')" class="px-3 py-1.5 rounded-xl bg-gemGold hover:bg-amber-400 text-woodDark font-bold text-xs shadow-md active:scale-95 transition">
+                  MASUK ➔
+                </button>
+              ` : `
+                <span class="text-[11px] font-kanit text-amber-200">Kumpul Bintang</span>
+              `}
+            </div>
+          </div>
+        `;
+      });
+
+      wrapper.innerHTML = `
+        <div class="flex items-center justify-between border-b-2 border-woodPlank pb-2">
+          <div class="flex items-center gap-2">
+            <span class="text-3xl">🗺️</span>
+            <div>
+              <h2 class="text-xl sm:text-2xl font-extrabold text-woodDark leading-tight">PETA DUNIA PENGEMBARAAN</h2>
+              <p class="text-xs font-kanit text-slate-600 font-semibold">Pilih kawasan terbuka untuk memulakan cabaran</p>
+            </div>
+          </div>
+          <button onclick="app.showScreen('home')" class="px-3 py-1.5 rounded-xl bg-woodDark text-amber-300 text-xs font-bold hover:bg-woodPlank transition">
+            🏠 MENU
+          </button>
+        </div>
+
+        <!-- Status Penjelajah Ringkas -->
+        <div class="flex items-center justify-around bg-amber-100/80 p-2.5 rounded-xl border border-woodPlank/50 font-kanit text-xs font-bold text-woodDark">
+          <span>⭐ Jumlah Bintang: <strong class="text-amber-800 text-sm">${this.stars}</strong></span>
+          <span>💎 Permata: <strong class="text-sky-800 text-sm">${this.gems}</strong></span>
+          <span>🎖️ Kawasan: <strong class="text-emerald-800 text-sm">${this.unlockedZones.length} / 5</strong></span>
+        </div>
+
+        <!-- Senarai Kawasan Berpeta -->
+        <div class="space-y-2.5 max-h-[55vh] overflow-y-auto pr-1">
+          ${zoneCardsHtml}
+        </div>
+      `;
+
+      container.appendChild(wrapper);
+    };
+
+    AdventureApp.prototype.launchZone = function(zoneId) {
+      switch (zoneId) {
+        case 'zone1':
+          this.showScreen('misi1');
+          break;
+        case 'zone2':
+          // Pilih antara Misi 2 atau Misi 3
+          this.showScreen('misi2');
+          break;
+        case 'zone3':
+          this.showScreen('misi4');
+          break;
+        case 'zone4':
+          this.showScreen('misi6');
+          break;
+        case 'zone5':
+          this.showScreen('misi8');
+          break;
+        default:
+          this.showScreen('misi1');
+      }
+    };
+  </script>
+
+  <script>
+    /**
+     * MISI 1: KENALI KATA NAMA (Am vs Khas dengan Konteks & Huruf Besar)
+     */
+    AdventureApp.prototype.renderMisi1 = function(container) {
+      let currentIndex = 0;
+      const questions = GAME_DATA.misi1_items;
+
+      const renderQuestion = () => {
+        const item = questions[currentIndex];
+        container.innerHTML = `
+          <div class="w-full max-w-xl parchment p-4 sm:p-6 shadow-2xl flex flex-col items-center text-center pop-anim">
+            <!-- HUD Misi -->
+            <div class="w-full flex items-center justify-between border-b-2 border-woodPlank pb-2 mb-2">
+              <span class="text-xs font-kanit font-extrabold text-woodDark">⛺ KEM PERMULAAN • MISI 1</span>
+              <span class="text-xs font-kanit font-bold text-amber-800">SOALAN ${currentIndex + 1} / ${questions.length}</span>
+              <button onclick="app.showScreen('map')" class="text-xs text-blue-700 underline font-bold">Peta ➔</button>
+            </div>
+
+            <!-- Watak Dialog -->
+            <div id="rimbaSpeechBox" class="w-full bg-amber-100 p-2 rounded-xl text-xs font-kanit text-woodDark font-semibold mb-2">
+              “Baca perkataan ini dengan teliti. Adakah ia panggilan umum atau nama khusus?”
+            </div>
+
+            <!-- Kad Objek Visual Besar -->
+            <div class="w-24 h-24 rounded-2xl bg-white border-2 border-woodPlank shadow-inner flex items-center justify-center text-5xl my-1">
+              ${item.emoji}
+            </div>
+
+            <!-- Perkataan Sasaran -->
+            <div class="text-4xl sm:text-5xl font-extrabold text-woodDark my-1 tracking-wide">
+              ${item.word}
+            </div>
+
+            <!-- Petunjuk Pembelajaran -->
+            <div class="text-xs font-kanit text-slate-600 mb-3 max-w-md">
+              💡 ${item.hint}
+            </div>
+
+            <!-- Pilihan Jawapan Gergasi (AM vs KHAS) -->
+            <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-3 mt-1">
+              <button id="btnAm" onclick="chooseAns('AM')" class="py-3.5 px-4 rounded-2xl bg-blue-600 hover:bg-blue-500 border-4 border-blue-900 text-white font-extrabold text-base sm:text-lg shadow-lg active:scale-95 transition">
+                🟦 KATA NAMA AM
+                <span class="block text-[11px] font-kanit font-normal text-blue-100">Nama biasa / umum</span>
+              </button>
+
+              <button id="btnKhas" onclick="chooseAns('KHAS')" class="py-3.5 px-4 rounded-2xl bg-amber-600 hover:bg-amber-500 border-4 border-amber-900 text-white font-extrabold text-base sm:text-lg shadow-lg active:scale-95 transition">
+                🟨 KATA NAMA KHAS
+                <span class="block text-[11px] font-kanit font-normal text-amber-100">Nama khusus (huruf besar)</span>
+              </button>
+            </div>
+
+            <!-- Maklum Balas Dinamik -->
+            <div id="feedbackBox" class="w-full min-h-[40px] mt-3"></div>
+
+            <button id="nextBtn" class="wood-btn w-full py-3 mt-2 hidden text-base font-bold">
+              SOALAN SETERUSNYA ➔
+            </button>
+          </div>
+        `;
+
+        window.chooseAns = (selected) => {
+          const fb = document.getElementById('feedbackBox');
+          const nextBtn = document.getElementById('nextBtn');
+          const btnAm = document.getElementById('btnAm');
+          const btnKhas = document.getElementById('btnKhas');
+
+          if (selected === item.category) {
+            audioEngine.playCorrect();
+            this.addScore(100);
+            this.incrementCombo();
+            this.addGems(1);
+
+            fb.innerHTML = `
+              <div class="p-2.5 rounded-xl bg-emerald-100 border border-emerald-500 text-emerald-900 text-xs sm:text-sm font-kanit font-bold pop-anim">
+                🎉 BETUL! SYABAS!<br><span class="font-normal">${item.explanation}</span>
+              </div>
+            `;
+            btnAm.disabled = true;
+            btnKhas.disabled = true;
+            nextBtn.classList.remove('hidden');
+            nextBtn.onclick = () => {
+              currentIndex++;
+              if (currentIndex < questions.length) {
+                renderQuestion();
+              } else {
+                this.addStars(3);
+                this.showModal('MISI 1 SELESAI!', '🌟🌟🌟', 'Hebat! Anda telah menguasai Kem Permulaan dan mengumpul 3 Bintang Pengembara!', 'TERUSKAN PENGEMBARAAN', () => {
+                  this.showScreen('map');
+                });
+              }
+            };
+          } else {
+            audioEngine.playWrong();
+            this.resetCombo();
+            fb.innerHTML = `
+              <div class="p-2.5 rounded-xl bg-rose-100 border border-rose-500 text-rose-900 text-xs sm:text-sm font-kanit font-bold pop-anim">
+                ❌ CUBA LAGI!<br><span class="font-normal">${item.hint}</span>
+              </div>
+            `;
+          }
+        };
+      };
+
+      renderQuestion();
+    };
+
+    /**
+     * MISI 2: CARI HARTA KARUN (Memilih semua Kata Nama Khas)
+     */
+    AdventureApp.prototype.renderMisi2 = function(container) {
+      const data = GAME_DATA.misi2_sets[0];
+      let collected = 0;
+
+      container.innerHTML = `
+        <div class="w-full max-w-xl parchment p-4 sm:p-6 shadow-2xl flex flex-col items-center text-center pop-anim">
+          <div class="w-full flex items-center justify-between border-b-2 border-woodPlank pb-2 mb-2">
+            <span class="text-xs font-kanit font-extrabold text-woodDark">🌳 HUTAN KATA NAMA AM • MISI 2</span>
+            <span id="collectedCounter" class="text-xs font-kanit font-bold text-amber-800">Ditemui: 0 / ${data.needed}</span>
+            <button onclick="app.showScreen('map')" class="text-xs text-blue-700 underline font-bold">Peta ➔</button>
+          </div>
+
+          <div class="text-4xl my-1 float-rimba">🎁</div>
+          <h3 class="text-xl font-extrabold text-woodDark">CARI HARTA KARUN RIMBA</h3>
+          <p class="text-xs font-kanit text-slate-700 mb-3">${data.instruction}</p>
+
+          <!-- Grid Kad-kad perkataan bertaburan -->
+          <div class="w-full grid grid-cols-2 sm:grid-cols-3 gap-2.5 my-2">
+            ${data.cards.map((c, i) => `
+              <button id="chestCard_${i}" onclick="checkCard(${i})" class="p-3 rounded-2xl bg-white border-2 border-woodPlank font-bold text-sm sm:text-base text-woodDark shadow hover:bg-amber-50 active:scale-95 transition">
+                ${c.text}
+              </button>
+            `).join('')}
+          </div>
+
+          <div id="misi2Msg" class="min-h-[36px] text-xs font-kanit font-bold text-woodDark mt-1"></div>
+        </div>
+      `;
+
+      window.checkCard = (idx) => {
+        const card = data.cards[idx];
+        const btn = document.getElementById(`chestCard_${idx}`);
+        const msg = document.getElementById('misi2Msg');
+
+        if (card.isTarget) {
+          if (!btn.classList.contains('bg-emerald-500')) {
+            audioEngine.playGemPickup();
+            btn.classList.remove('bg-white');
+            btn.classList.add('bg-emerald-500', 'text-white', 'border-emerald-700');
+            collected++;
+            document.getElementById('collectedCounter').textContent = `Ditemui: ${collected} / ${data.needed}`;
+            msg.innerHTML = `<span class="text-emerald-700">✅ Tepat! “${card.text}” ialah Kata Nama Khas!</span>`;
+            this.addGems(2);
+
+            if (collected === data.needed) {
+              audioEngine.playChestOpen();
+              this.addStars(2);
+              this.addScore(250);
+              setTimeout(() => {
+                this.showModal('PETI HARTA KARUN TERBUKA!', '🏆', 'Syabas! Semua Kata Nama Khas telah berjaya dikumpulkan!', 'MENUJU KE MISI 3', () => {
+                  this.showScreen('misi3');
+                });
+              }, 600);
+            }
+          }
+        } else {
+          audioEngine.playWrong();
+          btn.classList.add('shake');
+          setTimeout(() => btn.classList.remove('shake'), 400);
+          msg.innerHTML = `<span class="text-rose-700">❌ “${card.text}” ialah Kata Nama Am (nama umum). Cari Kata Nama Khas!</span>`;
+        }
+      };
+    };
+
+    /**
+     * MISI 3: ASINGKAN KAD (Pengelasan ke dalam 2 Balang Kategori)
+     */
+    AdventureApp.prototype.renderMisi3 = function(container) {
+      let cards = [...GAME_DATA.misi3_cards];
+      let selectedCardIndex = null;
+
+      const renderView = () => {
+        container.innerHTML = `
+          <div class="w-full max-w-xl parchment p-4 sm:p-6 shadow-2xl flex flex-col items-center text-center pop-anim">
+            <div class="w-full flex items-center justify-between border-b-2 border-woodPlank pb-2 mb-2">
+              <span class="text-xs font-kanit font-extrabold text-woodDark">🌳 HUTAN KATA NAMA AM • MISI 3</span>
+              <span class="text-xs font-kanit font-bold text-amber-800">Kad Berbaki: ${cards.length}</span>
+              <button onclick="app.showScreen('map')" class="text-xs text-blue-700 underline font-bold">Peta ➔</button>
+            </div>
+
+            <h3 class="text-lg font-extrabold text-woodDark">ASINGKAN KAD PERKATAAN</h3>
+            <p class="text-xs font-kanit text-slate-700 mb-2">
+              Langkah: <strong>1. Tekan satu perkataan</strong> ➔ <strong>2. Tekan peti AM atau KHAS</strong>
+            </p>
+
+            <!-- Kad-kad yang boleh dipilih -->
+            <div class="w-full flex flex-wrap justify-center gap-2 mb-3 min-h-[50px]">
+              ${cards.map((c, i) => `
+                <button onclick="selectCard(${i})" class="px-3 py-1.5 rounded-xl border-2 font-bold text-xs sm:text-sm transition-all ${selectedCardIndex === i ? 'bg-amber-400 text-woodDark border-woodDark scale-105 ring-2 ring-amber-500' : 'bg-white text-woodDark border-woodPlank shadow'}">
+                  ${c.emoji} ${c.word}
+                </button>
+              `).join('')}
+            </div>
+
+            <!-- Dua Balang Kawasan Sasaran -->
+            <div class="w-full grid grid-cols-2 gap-3 mt-1">
+              <!-- Kotak AM -->
+              <button onclick="placeInto('AM')" class="p-4 rounded-2xl bg-blue-50 hover:bg-blue-100 border-3 border-blue-600 text-blue-900 flex flex-col items-center shadow active:scale-95 transition">
+                <span class="text-3xl mb-1">🟦</span>
+                <span class="font-extrabold text-sm sm:text-base">KATA NAMA AM</span>
+                <span class="text-[10px] font-kanit text-blue-700">Nama Biasa / Umum</span>
+              </button>
+
+              <!-- Kotak KHAS -->
+              <button onclick="placeInto('KHAS')" class="p-4 rounded-2xl bg-amber-50 hover:bg-amber-100 border-3 border-amber-600 text-amber-900 flex flex-col items-center shadow active:scale-95 transition">
+                <span class="text-3xl mb-1">🟨</span>
+                <span class="font-extrabold text-sm sm:text-base">KATA NAMA KHAS</span>
+                <span class="text-[10px] font-kanit text-amber-700">Nama Khusus (Huruf Besar)</span>
+              </button>
+            </div>
+
+            <div id="misi3Msg" class="min-h-[30px] text-xs font-kanit font-bold text-woodDark mt-3"></div>
+          </div>
+        `;
+      };
+
+      window.selectCard = (idx) => {
+        audioEngine.playClick();
+        selectedCardIndex = idx;
+        renderView();
+      };
+
+      window.placeInto = (targetCategory) => {
+        const msg = document.getElementById('misi3Msg');
+        if (selectedCardIndex === null) {
+          msg.textContent = '⚠️ Sila tekan mana-mana kad perkataan di atas terlebih dahulu!';
+          return;
+        }
+
+        const currentCard = cards[selectedCardIndex];
+        if (currentCard.category === targetCategory) {
+          audioEngine.playCorrect();
+          this.addScore(80);
+          this.addGems(1);
+          msg.innerHTML = `<span class="text-emerald-700">🎉 Tepat! “${currentCard.word}” dimasukkan dengan betul!</span>`;
+          cards.splice(selectedCardIndex, 1);
+          selectedCardIndex = null;
+
+          if (cards.length === 0) {
+            audioEngine.playVictory();
+            this.addStars(3);
+            setTimeout(() => {
+              this.showModal('PENGELASAN SELESAI!', '🌟🌟🌟', 'Semua kad telah berjaya diasingkan mengikut kumpulan!', 'KE PETA DUNIA', () => {
+                this.showScreen('map');
+              });
+            }, 600);
+          } else {
+            renderView();
+          }
+        } else {
+          audioEngine.playWrong();
+          msg.innerHTML = `<span class="text-rose-700">❌ Tidak tepat. “${currentCard.word}” bukan tergolong dalam kategori tersebut. Cuba lagi!</span>`;
+        }
+      };
+
+      renderView();
+    };
+
+    /**
+     * MISI 4: JEJAK KATA NAMA (Konteks Gambar & Perbandingan Am vs Khas)
+     */
+    AdventureApp.prototype.renderMisi4 = function(container) {
+      let qIndex = 0;
+      const questions = GAME_DATA.misi4_questions;
+
+      const render = () => {
+        const q = questions[qIndex];
+        container.innerHTML = `
+          <div class="w-full max-w-xl parchment p-4 sm:p-6 shadow-2xl flex flex-col items-center text-center pop-anim">
+            <div class="w-full flex items-center justify-between border-b-2 border-woodPlank pb-2 mb-2">
+              <span class="text-xs font-kanit font-extrabold text-woodDark">🏞️ LEMBAH KATA NAMA KHAS • MISI 4</span>
+              <span class="text-xs font-kanit font-bold text-amber-800">Soalan ${qIndex + 1} / ${questions.length}</span>
+              <button onclick="app.showScreen('map')" class="text-xs text-blue-700 underline font-bold">Peta ➔</button>
+            </div>
+
+            <div class="w-20 h-20 rounded-2xl bg-white border-2 border-woodPlank shadow-inner flex items-center justify-center text-5xl my-1">
+              ${q.imageEmoji}
+            </div>
+
+            <h3 class="text-base sm:text-lg font-extrabold text-woodDark">${q.title}</h3>
+            <p class="text-xs font-kanit text-slate-600 mb-2 italic">"${q.context}"</p>
+
+            <div class="bg-amber-100 p-2 rounded-xl text-xs font-kanit font-bold text-woodDark w-full mb-3">
+              ❓ ${q.question}
+            </div>
+
+            <div class="w-full flex flex-col gap-2">
+              ${q.options.map(opt => `
+                <button onclick="checkM4('${opt}')" class="w-full py-3 px-4 rounded-xl bg-white hover:bg-amber-100 border-2 border-woodPlank font-extrabold text-sm sm:text-base text-woodDark shadow active:scale-95 transition">
+                  ${opt}
+                </button>
+              `).join('')}
+            </div>
+
+            <div id="m4Msg" class="min-h-[36px] text-xs font-kanit font-bold mt-2"></div>
+            <button id="m4Next" class="wood-btn w-full py-2.5 mt-2 hidden text-sm font-bold">SOALAN SETERUSNYA ➔</button>
+          </div>
+        `;
+
+        window.checkM4 = (chosen) => {
+          const msg = document.getElementById('m4Msg');
+          const next = document.getElementById('m4Next');
+
+          if (chosen === q.correct) {
+            audioEngine.playCorrect();
+            this.addScore(100);
+            this.addGems(2);
+            msg.innerHTML = `<span class="text-emerald-700">🎉 BETUL! ${q.explanation}</span>`;
+            next.classList.remove('hidden');
+            next.onclick = () => {
+              qIndex++;
+              if (qIndex < questions.length) {
+                render();
+              } else {
+                this.addStars(2);
+                this.showModal('MISI 4 SELESAI!', '✨', 'Anda berjaya menjejak perbezaan Kata Nama Am dan Khas berpandukan konteks!', 'TERUS KE DETEKTIF HURUF BESAR', () => {
+                  this.showScreen('misi5');
+                });
+              }
+            };
+          } else {
+            audioEngine.playWrong();
+            msg.innerHTML = `<span class="text-rose-700">❌ Kurang tepat. Fikirkan sama ada soalan meminta nama umum atau nama khusus.</span>`;
+          }
+        };
+      };
+
+      render();
+    };
+
+    /**
+     * MISI 5: DETEKTIF HURUF BESAR (Membetulkan kesalahan huruf kecil pada Kata Nama Khas)
+     */
+    AdventureApp.prototype.renderMisi5 = function(container) {
+      let sIndex = 0;
+      const items = GAME_DATA.misi5_sentences;
+
+      const render = () => {
+        const item = items[sIndex];
+        const fixedWords = {};
+
+        container.innerHTML = `
+          <div class="w-full max-w-xl parchment p-4 sm:p-6 shadow-2xl flex flex-col items-center text-center pop-anim">
+            <div class="w-full flex items-center justify-between border-b-2 border-woodPlank pb-2 mb-2">
+              <span class="text-xs font-kanit font-extrabold text-woodDark">🏞️ LEMBAH KATA NAMA KHAS • MISI 5</span>
+              <span class="text-xs font-kanit font-bold text-amber-800">Kes ${sIndex + 1} / ${items.length}</span>
+              <button onclick="app.showScreen('map')" class="text-xs text-blue-700 underline font-bold">Peta ➔</button>
+            </div>
+
+            <div class="text-4xl my-1">🔍</div>
+            <h3 class="text-lg font-extrabold text-woodDark">DETEKTIF HURUF BESAR</h3>
+            <p class="text-xs font-kanit text-slate-700 mb-2">
+              Tekan perkataan Kata Nama Khas yang tersilap ditulis dengan huruf kecil untuk membetulkannya:
+            </p>
+
+            <!-- Kawasan Ayat Boleh Ditekan -->
+            <div class="w-full bg-white p-4 rounded-2xl border-2 border-woodPlank my-2 flex flex-wrap justify-center gap-2">
+              ${item.clickableWords.map((w, idx) => `
+                <button id="wordBtn_${idx}" onclick="fixWord(${idx}, '${w}')" class="px-2.5 py-1.5 rounded-lg border border-slate-300 font-kanit text-sm sm:text-base font-bold bg-slate-50 hover:bg-amber-100 transition">
+                  ${w}
+                </button>
+              `).join('')}
+            </div>
+
+            <div id="m5Msg" class="min-h-[36px] text-xs font-kanit font-bold mt-2 text-slate-700">
+              Cari perkataan Kata Nama Khas yang perlu ditukar huruf besar.
+            </div>
+
+            <button id="m5Submit" onclick="checkAllFixed()" class="wood-btn w-full py-3 mt-2 text-sm font-bold">
+              SEMAK KEPUTUSAN DETEKTIF
+            </button>
+          </div>
+        `;
+
+        window.fixWord = (idx, word) => {
+          audioEngine.playClick();
+          const btn = document.getElementById(`wordBtn_${idx}`);
+          if (item.fixMapping[word]) {
+            fixedWords[word] = true;
+            btn.textContent = item.fixMapping[word];
+            btn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-800');
+          } else {
+            btn.classList.add('shake');
+            setTimeout(() => btn.classList.remove('shake'), 300);
+          }
+        };
+
+        window.checkAllFixed = () => {
+          const requiredKeys = Object.keys(item.fixMapping);
+          const allFound = requiredKeys.every(k => fixedWords[k]);
+
+          if (allFound) {
+            audioEngine.playCorrect();
+            this.addScore(150);
+            this.addGems(3);
+            this.showModal('KES BERJAYA DISELESAIKAN!', '🔎⭐', item.explanation, 'SETERUSNYA', () => {
+              sIndex++;
+              if (sIndex < items.length) {
+                render();
+              } else {
+                this.addStars(3);
+                this.badges.push('Detektif Huruf Besar');
+                this.showScreen('map');
+              }
+            });
+          } else {
+            audioEngine.playWrong();
+            document.getElementById('m5Msg').innerHTML = `<span class="text-rose-700">❌ Masih ada Kata Nama Khas yang belum dibetulkan. Ingat, nama orang dan tempat bermula huruf besar!</span>`;
+          }
+        };
+      };
+
+      render();
+    };
+  </script>
+
+  <script>
+    /**
+     * MISI 6: CABARAN PANTAS (Speed Challenge dengan Undur Masa 5s)
+     */
+    AdventureApp.prototype.renderMisi6 = function(container) {
+      let pool = [...GAME_DATA.misi6_speedPool].sort(() => Math.random() - 0.5);
+      let idx = 0;
+      let timer = 5;
+      let timerInterval = null;
+
+      const renderQuestion = () => {
+        if (idx >= pool.length) {
+          clearInterval(timerInterval);
+          this.addStars(3);
+          this.showModal('CABARAN PANTAS TAMAT!', '⚡⚡', 'Luar biasa tangkas! Anda memperoleh bonus kelajuan!', 'KEMBALI KE PETA', () => {
+            this.showScreen('map');
+          });
+          return;
+        }
+
+        const current = pool[idx];
+        timer = 5;
+
+        container.innerHTML = `
+          <div class="w-full max-w-xl parchment p-4 sm:p-6 shadow-2xl flex flex-col items-center text-center pop-anim">
+            <div class="w-full flex items-center justify-between border-b-2 border-woodPlank pb-2 mb-2">
+              <span class="text-xs font-kanit font-extrabold text-woodDark">🌊 SUNGAI CABARAN • MISI 6</span>
+              <span class="text-xs font-kanit font-bold text-amber-800">${idx + 1} / ${pool.length}</span>
+              <button onclick="clearInterval(${timerInterval}); app.showScreen('map');" class="text-xs text-blue-700 underline font-bold">Peta ➔</button>
+            </div>
+
+            <!-- Pemasa Countdown Beranimasi -->
+            <div class="w-16 h-16 rounded-full bg-amber-500 border-4 border-woodDark flex items-center justify-center text-2xl font-extrabold text-white shadow-lg my-1">
+              <span id="speedTimerText">${timer}</span>
+            </div>
+
+            <div class="text-xs font-kanit font-bold text-slate-600 mt-1">JAWAB DENGAN PANTAS:</div>
+            <div class="text-4xl sm:text-5xl font-extrabold text-woodDark my-2 tracking-wide">
+              ${current.word}
+            </div>
+
+            <!-- Butang Jawapan Pantas -->
+            <div class="w-full grid grid-cols-2 gap-3 mt-3">
+              <button onclick="speedAnswer('AM')" class="py-4 rounded-2xl bg-blue-600 hover:bg-blue-500 border-3 border-blue-900 text-white font-extrabold text-base shadow active:scale-95 transition">
+                🟦 AM
+              </button>
+              <button onclick="speedAnswer('KHAS')" class="py-4 rounded-2xl bg-amber-600 hover:bg-amber-500 border-3 border-amber-900 text-white font-extrabold text-base shadow active:scale-95 transition">
+                🟨 KHAS
+              </button>
+            </div>
+          </div>
+        `;
+
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+          timer--;
+          const el = document.getElementById('speedTimerText');
+          if (el) el.textContent = timer;
+          if (timer <= 0) {
+            clearInterval(timerInterval);
+            audioEngine.playWrong();
+            idx++;
+            renderQuestion();
+          }
+        }, 1000);
+
+        window.speedAnswer = (choice) => {
+          clearInterval(timerInterval);
+          if (choice === current.cat) {
+            audioEngine.playCorrect();
+            const bonus = timer > 2 ? 100 : 50;
+            this.addScore(bonus);
+            this.addGems(1);
+          } else {
+            audioEngine.playWrong();
+          }
+          idx++;
+          renderQuestion();
+        };
+      };
+
+      renderQuestion();
+    };
+
+    /**
+     * MISI 7: CABARAN AYAT (Menganalisis Peranan Kata Nama dalam Ayat)
+     */
+    AdventureApp.prototype.renderMisi7 = function(container) {
+      let qIndex = 0;
+      const questions = GAME_DATA.misi7_sentenceQuiz;
+
+      const render = () => {
+        const q = questions[qIndex];
+        container.innerHTML = `
+          <div class="w-full max-w-xl parchment p-4 sm:p-6 shadow-2xl flex flex-col items-center text-center pop-anim">
+            <div class="w-full flex items-center justify-between border-b-2 border-woodPlank pb-2 mb-2">
+              <span class="text-xs font-kanit font-extrabold text-woodDark">🌊 SUNGAI CABARAN • MISI 7</span>
+              <span class="text-xs font-kanit font-bold text-amber-800">${qIndex + 1} / ${questions.length}</span>
+              <button onclick="app.showScreen('map')" class="text-xs text-blue-700 underline font-bold">Peta ➔</button>
+            </div>
+
+            <div class="text-4xl my-1">📜</div>
+            <h3 class="text-base sm:text-lg font-extrabold text-woodDark">KATA NAMA DALAM AYAT</h3>
+            
+            <div class="w-full bg-white p-3.5 rounded-2xl border-2 border-woodPlank my-2 text-sm sm:text-base font-kanit font-bold text-woodDark italic">
+              "${q.sentence}"
+            </div>
+
+            <div class="text-xs font-kanit text-slate-700 font-semibold mb-3">
+              ❓ ${q.question}
+            </div>
+
+            <div class="w-full grid grid-cols-2 gap-2.5">
+              ${q.options.map(opt => `
+                <button onclick="checkM7('${opt}')" class="py-3 px-3 rounded-xl bg-amber-50 hover:bg-amber-100 border-2 border-woodPlank font-bold text-sm text-woodDark shadow active:scale-95 transition">
+                  ${opt}
+                </button>
+              `).join('')}
+            </div>
+
+            <div id="m7Msg" class="min-h-[30px] text-xs font-kanit font-bold mt-2"></div>
+            <button id="m7Next" class="wood-btn w-full py-2.5 mt-2 hidden text-sm font-bold">SETERUSNYA ➔</button>
+          </div>
+        `;
+
+        window.checkM7 = (ans) => {
+          const msg = document.getElementById('m7Msg');
+          const next = document.getElementById('m7Next');
+          if (ans === q.correct) {
+            audioEngine.playCorrect();
+            this.addScore(100);
+            this.addGems(2);
+            msg.innerHTML = `<span class="text-emerald-700">🎉 TEPAT SEKALI! ${q.explanation}</span>`;
+            next.classList.remove('hidden');
+            next.onclick = () => {
+              qIndex++;
+              if (qIndex < questions.length) {
+                render();
+              } else {
+                this.addStars(3);
+                this.showModal('CABARAN AYAT TERCAPAI!', '📜⭐', 'Tahniah! Anda boleh menganalisis Kata Nama di dalam ayat lengkap!', 'BUKA ISTANA PERMATA', () => {
+                  this.showScreen('map');
+                });
+              }
+            };
+          } else {
+            audioEngine.playWrong();
+            msg.innerHTML = `<span class="text-rose-700">❌ Cuba lagi. Perhatikan sama ada perkataan itu nama benda/orang atau kata kerja.</span>`;
+          }
+        };
+      };
+
+      render();
+    };
+
+    /**
+     * MISI 8: BONUS ROUND: PETI HARTA KARUN (Gangsa, Perak & Emas)
+     */
+    AdventureApp.prototype.renderMisi8 = function(container) {
+      container.innerHTML = `
+        <div class="w-full max-w-2xl parchment p-4 sm:p-6 shadow-2xl flex flex-col items-center text-center pop-anim">
+          <div class="w-full flex items-center justify-between border-b-2 border-woodPlank pb-2 mb-2">
+            <span class="text-xs font-kanit font-extrabold text-woodDark">🏰 ISTANA PERMATA • MISI 8</span>
+            <button onclick="app.showScreen('map')" class="text-xs text-blue-700 underline font-bold">Peta ➔</button>
+          </div>
+
+          <div class="text-4xl my-1 float-rimba">👑</div>
+          <h3 class="text-xl font-extrabold text-woodDark">BONUS ROUND: TIGA PETI DIRAJA</h3>
+          <p class="text-xs font-kanit text-slate-700 mb-4">Pilih satu peti untuk memulakan cabaran ganjaran khas!</p>
+
+          <div class="w-full grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <!-- Peti Gangsa -->
+            <button onclick="app.playChestChallenge('bronze')" class="p-4 rounded-2xl bg-gradient-to-b from-amber-700 to-amber-900 border-3 border-amber-950 text-white shadow-xl hover:scale-105 active:scale-95 transition">
+              <div class="text-4xl mb-1">🥉</div>
+              <h4 class="font-extrabold text-base">Peti Gangsa</h4>
+              <p class="text-[11px] font-kanit text-amber-200 mt-1">3 Soalan Asas</p>
+              <span class="inline-block mt-2 bg-black/40 text-amber-300 text-[10px] px-2 py-0.5 rounded-full">+3 💎 Permata</span>
+            </button>
+
+            <!-- Peti Perak -->
+            <button onclick="app.playChestChallenge('silver')" class="p-4 rounded-2xl bg-gradient-to-b from-slate-400 to-slate-700 border-3 border-slate-900 text-white shadow-xl hover:scale-105 active:scale-95 transition">
+              <div class="text-4xl mb-1">🥈</div>
+              <h4 class="font-extrabold text-base">Peti Perak</h4>
+              <p class="text-[11px] font-kanit text-slate-200 mt-1">3 Soalan Pengelasan</p>
+              <span class="inline-block mt-2 bg-black/40 text-sky-300 text-[10px] px-2 py-0.5 rounded-full">+5 💎 Permata</span>
+            </button>
+
+            <!-- Peti Emas -->
+            <button onclick="app.playChestChallenge('gold')" class="p-4 rounded-2xl bg-gradient-to-b from-yellow-500 to-amber-700 border-3 border-amber-950 text-white shadow-xl hover:scale-105 active:scale-95 transition">
+              <div class="text-4xl mb-1">🥇</div>
+              <h4 class="font-extrabold text-base">Peti Emas</h4>
+              <p class="text-[11px] font-kanit text-yellow-100 mt-1">3 Soalan Campuran</p>
+              <span class="inline-block mt-2 bg-black/40 text-yellow-300 text-[10px] px-2 py-0.5 rounded-full">+8 💎 Permata</span>
+            </button>
+          </div>
+        </div>
+      `;
+    };
+
+    AdventureApp.prototype.playChestChallenge = function(type) {
+      const chest = GAME_DATA.misi8_chests[type];
+      let qIdx = 0;
+      const viewport = document.getElementById('gameViewport');
+
+      const renderChestQ = () => {
+        const item = chest.questions[qIdx];
+        viewport.innerHTML = `
+          <div class="w-full max-w-xl parchment p-4 sm:p-6 shadow-2xl flex flex-col items-center text-center pop-anim">
+            <span class="text-3xl">${chest.icon}</span>
+            <h3 class="text-lg font-extrabold text-woodDark">${chest.title}</h3>
+            <p class="text-xs font-kanit text-amber-800 font-bold mb-3">Soalan ${qIdx + 1} / ${chest.questions.length}</p>
+
+            <div class="w-full bg-white p-3 rounded-xl border-2 border-woodPlank font-kanit text-sm sm:text-base font-bold text-woodDark mb-3">
+              ${item.q}
+            </div>
+
+            <div class="w-full flex flex-col gap-2">
+              ${item.opt.map(o => `
+                <button onclick="checkChestAns('${o}')" class="w-full py-3 rounded-xl bg-amber-50 hover:bg-amber-100 border-2 border-woodPlank font-bold text-sm text-woodDark shadow active:scale-95 transition">
+                  ${o}
+                </button>
+              `).join('')}
+            </div>
+
+            <div id="chestMsg" class="min-h-[25px] text-xs font-kanit font-bold mt-2"></div>
+          </div>
+        `;
+
+        window.checkChestAns = (ans) => {
+          if (ans === item.ans) {
+            audioEngine.playCorrect();
+            qIdx++;
+            if (qIdx < chest.questions.length) {
+              renderChestQ();
+            } else {
+              audioEngine.playChestOpen();
+              this.addGems(chest.rewardGems);
+              this.badges.push(chest.rewardBadge);
+              this.showModal(`TAHNIAH! ${chest.title} DIBUKA!`, chest.icon, `Kamu memperoleh +${chest.rewardGems} Permata dan Lencana [${chest.rewardBadge}]!`, 'MENUJU CABARAN AKHIR (BOSS)', () => {
+                this.showScreen('misi9');
+              });
+            }
+          } else {
+            audioEngine.playWrong();
+            document.getElementById('chestMsg').innerHTML = `<span class="text-rose-700">❌ Cuba lagi jawapan yang betul!</span>`;
+          }
+        };
+      };
+
+      renderChestQ();
+    };
+
+    /**
+     * MISI 9: BOSS TERAKHIR — PENJAGA PERMATA BAHASA (10 Soalan Campuran & Perisai Tenaga)
+     */
+    AdventureApp.prototype.renderMisi9 = function(container) {
+      let bossHp = 10;
+      let qIndex = 0;
+      const rounds = GAME_DATA.misi9_bossRounds;
+
+      const renderBoss = () => {
+        const item = rounds[qIndex];
+        const hpPercent = Math.max(0, (bossHp / 10) * 100);
+
+        container.innerHTML = `
+          <div class="w-full max-w-xl parchment p-4 sm:p-6 shadow-2xl flex flex-col items-center text-center pop-anim">
+            <div class="w-full flex items-center justify-between border-b-2 border-woodPlank pb-2 mb-2">
+              <span class="text-xs font-kanit font-extrabold text-woodDark">🏰 ISTANA PERMATA • BOSS TERAKHIR</span>
+              <span class="text-xs font-kanit font-bold text-rose-800">Pusingan ${qIndex + 1} / 10</span>
+              <button onclick="app.showScreen('map')" class="text-xs text-blue-700 underline font-bold">Peta ➔</button>
+            </div>
+
+            <!-- Avatar Boss & Perisai Tenaga -->
+            <div class="relative my-1">
+              <div class="text-6xl float-rimba">🧙‍♂️</div>
+              <div class="absolute -top-1 -right-2 text-2xl gem-pulse">🔮</div>
+            </div>
+
+            <h3 class="text-lg font-extrabold text-woodDark">PENJAGA PERMATA BAHASA</h3>
+            
+            <!-- Bar Tenaga Perisai Boss -->
+            <div class="w-full bg-slate-800 h-4 rounded-full border-2 border-woodPlank overflow-hidden my-2 p-0.5">
+              <div class="h-full bg-gradient-to-r from-rose-500 via-amber-400 to-emerald-400 rounded-full transition-all duration-300" style="width: ${hpPercent}%"></div>
+            </div>
+            <div class="text-[11px] font-kanit font-bold text-slate-600 mb-2">Perisai Ajaib Penjaga: ${bossHp} / 10</div>
+
+            <!-- Kad Soalan Boss -->
+            <div class="w-full bg-white p-3.5 rounded-2xl border-2 border-woodPlank my-1 shadow">
+              <div class="text-xs font-kanit font-bold text-slate-500 uppercase">Tentukan Golongan Kata:</div>
+              <div class="text-3xl sm:text-4xl font-extrabold text-woodDark my-1">${item.word}</div>
+              <p class="text-xs font-kanit text-slate-600 italic">💡 Petunjuk: ${item.hint}</p>
+            </div>
+
+            <!-- Pilihan Jawapan -->
+            <div class="w-full grid grid-cols-2 gap-3 mt-2">
+              <button onclick="strikeBoss('AM')" class="py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 border-3 border-blue-900 text-white font-extrabold text-base shadow active:scale-95 transition">
+                🟦 KATA NAMA AM
+              </button>
+              <button onclick="strikeBoss('KHAS')" class="py-3.5 rounded-2xl bg-amber-600 hover:bg-amber-500 border-3 border-amber-900 text-white font-extrabold text-base shadow active:scale-95 transition">
+                🟨 KATA NAMA KHAS
+              </button>
+            </div>
+
+            <div id="bossMsg" class="min-h-[25px] text-xs font-kanit font-bold mt-2"></div>
+          </div>
+        `;
+
+        window.strikeBoss = (type) => {
+          const msg = document.getElementById('bossMsg');
+          if (type === item.type) {
+            audioEngine.playCorrect();
+            bossHp--;
+            this.addScore(120);
+            this.addGems(1);
+            msg.innerHTML = `<span class="text-emerald-700">⚔️ TEPAT! Perisai Penjaga berkurang!</span>`;
+            qIndex++;
+
+            if (bossHp <= 0 || qIndex >= rounds.length) {
+              audioEngine.playVictory();
+              this.addStars(5);
+              this.badges.push('Pakar Kata Nama Rimba');
+              setTimeout(() => {
+                this.showScreen('victory');
+              }, 600);
+            } else {
+              setTimeout(() => renderBoss(), 350);
+            }
+          } else {
+            audioEngine.playWrong();
+            msg.innerHTML = `<span class="text-rose-700">🛡️ Perisai menyerap serangan! Fikirkan: Umum (Am) atau Khusus (Khas)?</span>`;
+          }
+        };
+      };
+
+      renderBoss();
+    };
+  </script>
+
+  <script>
+    /**
+     * SKRIN KEMENANGAN AKHIR PENGEMBARAAN (VICTORY SCREEN)
+     */
+    AdventureApp.prototype.renderVictoryScreen = function(container) {
+      audioEngine.playVictory();
+
+      container.innerHTML = `
+        <div class="w-full max-w-md parchment p-5 sm:p-6 text-center shadow-2xl pop-anim">
+          <div class="text-6xl animate-bounce mb-1">👑</div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-woodDark leading-tight">
+            TAHNIAH, PENJELAJAH BAHASA!
+          </h2>
+          <p class="text-xs font-kanit font-bold text-emerald-800 bg-emerald-100 py-1 px-3 rounded-full inline-block mt-1">
+            Permata Ilmu Bahasa Telah Ditemui!
+          </p>
+
+          <!-- Tiga Bintang Kemenangan Beranimasi -->
+          <div class="flex justify-center items-center gap-2 my-3 text-4xl text-amber-400">
+            <span class="star-pop">⭐</span>
+            <span class="star-pop" style="animation-delay: 0.2s">⭐</span>
+            <span class="star-pop" style="animation-delay: 0.4s">⭐</span>
+          </div>
+
+          <!-- Statistik Pencapaian -->
+          <div class="bg-amber-50 p-3.5 rounded-2xl border-2 border-woodPlank text-left text-xs font-kanit space-y-1.5 my-3 text-woodDark">
+            <div class="flex justify-between">
+              <span>Skor Keseluruhan:</span>
+              <strong class="text-amber-800 text-sm">⭐ ${this.score}</strong>
+            </div>
+            <div class="flex justify-between">
+              <span>Permata Bahasa Dikumpul:</span>
+              <strong class="text-sky-800 text-sm">💎 ${this.gems}</strong>
+            </div>
+            <div class="flex justify-between">
+              <span>Lencana Tertinggi:</span>
+              <strong class="text-emerald-800 text-sm">🏆 Pakar Kata Nama Rimba</strong>
+            </div>
+          </div>
+
+          <!-- Rumusan Ringkas Pembelajaran -->
+          <div class="p-2.5 bg-white rounded-xl border border-woodPlank text-[11px] font-kanit text-slate-700 text-left mb-3">
+            <strong>🌿 Ingatan Emas Bahasa:</strong>
+            <ul class="list-disc list-inside mt-0.5 space-y-0.5 text-slate-600">
+              <li><strong>AM = UMUM:</strong> manusia, haiwan, tempat atau benda biasa (guru, sekolah, kucing).</li>
+              <li><strong>KHAS = KHUSUS:</strong> nama tertentu bermula <strong>Huruf Besar</strong> (Faris, Malaysia, Si Tompok).</li>
+            </ul>
+          </div>
+
+          <!-- Tiga Butang Tindakan Akhir -->
+          <div class="flex flex-col gap-2">
+            <button onclick="app.showScreen('revision')" class="wood-btn py-2.5 text-sm font-bold flex items-center justify-center gap-1.5">
+              <span>📚 ULANG KAJI PERKATAAN</span>
+            </button>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="app.score=0; app.gems=0; app.stars=0; app.unlockedZones=['zone1']; app.showScreen('map');" class="py-2.5 rounded-xl bg-amber-200 text-woodDark font-bold text-xs border border-woodPlank hover:bg-amber-300">
+                🔄 MAIN SEMULA
+              </button>
+              <button onclick="app.showScreen('home')" class="py-2.5 rounded-xl bg-woodDark text-white font-bold text-xs hover:bg-woodPlank">
+                🏠 MENU UTAMA
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    };
+
+    /**
+     * MODUL ULANG KAJI INTERAKTIF (32 Perkataan dengan Penjelasan Segera)
+     */
+    AdventureApp.prototype.renderRevisionScreen = function(container) {
+      const items = GAME_DATA.revisionList;
+
+      container.innerHTML = `
+        <div class="w-full max-w-3xl parchment p-4 sm:p-6 shadow-2xl pop-anim">
+          <div class="flex items-center justify-between border-b-2 border-woodPlank pb-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="text-3xl">📚</span>
+              <div>
+                <h2 class="text-xl font-extrabold text-woodDark">ULANG KAJI KATA NAMA</h2>
+                <p class="text-xs font-kanit text-slate-600 font-semibold">Tekan mana-mana perkataan untuk membaca penerangannya</p>
+              </div>
+            </div>
+            <button onclick="app.showScreen('home')" class="px-3 py-1.5 rounded-xl bg-woodDark text-amber-300 text-xs font-bold hover:bg-woodPlank transition">
+              🏠 MENU
+            </button>
+          </div>
+
+          <!-- Penerangan Pop-Up Interaktif Kad -->
+          <div id="revDetailBox" class="bg-amber-100 p-3 rounded-2xl border-2 border-woodPlank text-xs sm:text-sm font-kanit font-bold text-woodDark mb-3 text-center">
+            Pilih mana-mana kad perkataan di bawah untuk melihat kategori dan maksudnya.
+          </div>
+
+          <!-- Dua Lajur: KATA NAMA AM vs KATA NAMA KHAS -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto pr-1">
+            <!-- Kolum AM -->
+            <div class="bg-blue-50 p-3 rounded-2xl border-2 border-blue-400">
+              <h3 class="font-extrabold text-blue-900 text-sm mb-2 flex items-center gap-1.5">
+                <span>🟦</span> <span>KATA NAMA AM (UMUM)</span>
+              </h3>
+              <div class="flex flex-wrap gap-1.5">
+                ${items.filter(i => i.cat === 'AM').map(i => `
+                  <button onclick="showRevDetail('${i.word}', 'AM', '${i.exp}')" class="px-2.5 py-1 rounded-lg bg-white border border-blue-300 font-bold text-xs text-blue-950 hover:bg-blue-200 transition">
+                    ${i.word}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- Kolum KHAS -->
+            <div class="bg-amber-50 p-3 rounded-2xl border-2 border-amber-400">
+              <h3 class="font-extrabold text-amber-900 text-sm mb-2 flex items-center gap-1.5">
+                <span>🟨</span> <span>KATA NAMA KHAS (KHUSUS)</span>
+              </h3>
+              <div class="flex flex-wrap gap-1.5">
+                ${items.filter(i => i.cat === 'KHAS').map(i => `
+                  <button onclick="showRevDetail('${i.word}', 'KHAS', '${i.exp}')" class="px-2.5 py-1 rounded-lg bg-white border border-amber-300 font-bold text-xs text-amber-950 hover:bg-amber-200 transition">
+                    ${i.word}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      window.showRevDetail = (word, cat, exp) => {
+        audioEngine.playClick();
+        const box = document.getElementById('revDetailBox');
+        box.innerHTML = `
+          <span class="text-base font-extrabold ${cat === 'AM' ? 'text-blue-900' : 'text-amber-900'}">${word}</span>
+          <span class="text-xs ml-2 px-2 py-0.5 rounded-full ${cat === 'AM' ? 'bg-blue-200 text-blue-900' : 'bg-amber-200 text-amber-900'}">
+            ${cat === 'AM' ? 'Kata Nama Am' : 'Kata Nama Khas'}
+          </span>
+          <div class="text-xs font-normal text-slate-700 mt-1">${exp}</div>
+        `;
+      };
+    };
+
+    /**
+     * DOKUMENTASI LENGKAP INFO BBM (5 BAHAGIAN UTAMA DSKP TAHUN 1)
+     */
+    AdventureApp.prototype.renderInfoBbmScreen = function(container) {
+      container.innerHTML = `
+        <div class="w-full max-w-3xl parchment p-4 sm:p-6 shadow-2xl pop-anim">
+          <div class="flex items-center justify-between border-b-2 border-woodPlank pb-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="text-3xl">📋</span>
+              <div>
+                <h2 class="text-xl font-extrabold text-woodDark">INFO BBM — BAHAN BANTU MENGAJAR</h2>
+                <p class="text-xs font-kanit text-slate-600 font-semibold">Dokumentasi Pedagogi & Kurikulum Bahasa Melayu Tahun 1</p>
+              </div>
+            </div>
+            <button onclick="app.showScreen('home')" class="px-3 py-1.5 rounded-xl bg-woodDark text-amber-300 text-xs font-bold hover:bg-woodPlank transition">
+              🏠 MENU
+            </button>
+          </div>
+
+          <!-- Tab Bar Dokumentasi 5 Bahagian -->
+          <div class="flex flex-wrap gap-1.5 mb-3 pb-2 border-b border-woodPlank/30 text-xs font-bold">
+            <button onclick="app.switchBbmTab('sp')" id="tabBtn_sp" class="px-2.5 py-1.5 rounded-xl bg-woodDark text-amber-300">1. Standard Pembelajaran</button>
+            <button onclick="app.switchBbmTab('objektif')" id="tabBtn_objektif" class="px-2.5 py-1.5 rounded-xl bg-amber-200 text-woodDark">2. Objektif Penggunaan</button>
+            <button onclick="app.switchBbmTab('tujuan')" id="tabBtn_tujuan" class="px-2.5 py-1.5 rounded-xl bg-amber-200 text-woodDark">3. Tujuan Penggunaan</button>
+            <button onclick="app.switchBbmTab('kemahiran')" id="tabBtn_kemahiran" class="px-2.5 py-1.5 rounded-xl bg-amber-200 text-woodDark">4. Kemahiran Fokus</button>
+            <button onclick="app.switchBbmTab('manualTab')" id="tabBtn_manualTab" class="px-2.5 py-1.5 rounded-xl bg-amber-200 text-woodDark">5. Manual Ringkas</button>
+          </div>
+
+          <!-- Kandungan Tab Dinamik -->
+          <div id="bbmContentBody" class="max-h-[50vh] overflow-y-auto pr-1"></div>
+        </div>
+      `;
+
+      this.switchBbmTab(this.selectedBbmTab || 'sp');
+    };
+
+    AdventureApp.prototype.switchBbmTab = function(tabKey) {
+      audioEngine.playClick();
+      this.selectedBbmTab = tabKey;
+      const allTabs = ['sp', 'objektif', 'tujuan', 'kemahiran', 'manualTab'];
+      allTabs.forEach(t => {
+        const btn = document.getElementById(`tabBtn_${t}`);
+        if (!btn) return;
+        if (t === tabKey) {
+          btn.className = 'px-2.5 py-1.5 rounded-xl bg-woodDark text-amber-300 shadow';
+        } else {
+          btn.className = 'px-2.5 py-1.5 rounded-xl bg-amber-200 text-woodDark hover:bg-amber-300';
+        }
+      });
+
+      const body = document.getElementById('bbmContentBody');
+      if (!body) return;
+
+      if (tabKey === 'sp') {
+        body.innerHTML = `
+          <div class="wood-board p-4 sm:p-5 text-white text-left shadow-lg">
+            <div class="text-xs font-kanit font-extrabold text-amber-300 uppercase tracking-widest mb-1">📜 DOKUMEN STANDARD KURIKULUM & PENTAKSIRAN</div>
+            <h3 class="text-lg sm:text-xl font-extrabold text-amber-200 mb-3 border-b border-amber-400/40 pb-1">STANDARD PEMBELAJARAN</h3>
+            <div class="space-y-2 font-kanit text-xs sm:text-sm">
+              <div class="bg-woodDark/80 p-2.5 rounded-xl border border-woodPlank"><strong class="text-amber-300">Mata Pelajaran:</strong> Bahasa Melayu</div>
+              <div class="bg-woodDark/80 p-2.5 rounded-xl border border-woodPlank"><strong class="text-amber-300">Tahun:</strong> Tahun 1</div>
+              <div class="bg-woodDark/80 p-2.5 rounded-xl border border-woodPlank"><strong class="text-amber-300">Tajuk:</strong> Kata Nama Am dan Kata Nama Khas</div>
+              <div class="bg-woodDark/80 p-2.5 rounded-xl border border-woodPlank">
+                <strong class="text-amber-300">Standard Kandungan:</strong><br>
+                5.1 Memahami dan menggunakan golongan kata mengikut konteks.
+              </div>
+              <div class="bg-woodDark/80 p-2.5 rounded-xl border border-woodPlank">
+                <strong class="text-amber-300">Standard Pembelajaran:</strong><br>
+                5.1.1 Memahami dan mengenal pasti penggunaan golongan kata mengikut konteks, dengan fokus pada:
+                <ul class="list-disc list-inside mt-1 ml-2 text-amber-100">
+                  <li>(i) Kata Nama Am</li>
+                  <li>(ii) Kata Nama Khas</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (tabKey === 'objektif') {
+        body.innerHTML = `
+          <div class="space-y-2.5">
+            <h3 class="text-base font-extrabold text-woodDark flex items-center gap-1.5"><span>🎯</span> OBJEKTIF PENGGUNAAN BAHAN</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+              <div class="bg-white p-3.5 rounded-2xl border-2 border-emerald-400 shadow-sm">
+                <div class="text-2xl mb-1">📖 1</div>
+                <h4 class="font-bold text-xs text-emerald-900 uppercase">Mengenal Pasti</h4>
+                <p class="text-xs font-kanit text-slate-700 mt-1">Murid dapat mengenal pasti Kata Nama Am dan Kata Nama Khas berdasarkan perkataan, gambar dan konteks yang diberikan.</p>
+              </div>
+              <div class="bg-white p-3.5 rounded-2xl border-2 border-amber-400 shadow-sm">
+                <div class="text-2xl mb-1">🎯 2</div>
+                <h4 class="font-bold text-xs text-amber-900 uppercase">Memahami Perbezaan</h4>
+                <p class="text-xs font-kanit text-slate-700 mt-1">Murid dapat memahami perbezaan penggunaan Kata Nama Am dan Kata Nama Khas dalam situasi harian serta ayat mudah.</p>
+              </div>
+              <div class="bg-white p-3.5 rounded-2xl border-2 border-blue-400 shadow-sm">
+                <div class="text-2xl mb-1">🧩 3</div>
+                <h4 class="font-bold text-xs text-blue-900 uppercase">Mengaplikasi</h4>
+                <p class="text-xs font-kanit text-slate-700 mt-1">Murid dapat mengaplikasikan pengetahuan tentang Kata Nama Am dan Kata Nama Khas melalui aktiviti permainan interaktif.</p>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (tabKey === 'tujuan') {
+        body.innerHTML = `
+          <div class="space-y-2.5">
+            <h3 class="text-base font-extrabold text-woodDark flex items-center gap-1.5"><span>🌿</span> TUJUAN PENGGUNAAN BAHAN</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+              <div class="bg-emerald-50 p-3.5 rounded-2xl border-2 border-emerald-400 shadow-sm">
+                <div class="text-2xl mb-1">🎮</div>
+                <h4 class="font-bold text-xs text-emerald-950 uppercase">Suasana Seronok</h4>
+                <p class="text-xs font-kanit text-emerald-900 mt-1">Mewujudkan suasana pembelajaran Bahasa Melayu yang menyeronokkan, interaktif dan bermakna melalui pendekatan gamifikasi.</p>
+              </div>
+              <div class="bg-amber-50 p-3.5 rounded-2xl border-2 border-amber-400 shadow-sm">
+                <div class="text-2xl mb-1">👥</div>
+                <h4 class="font-bold text-xs text-amber-950 uppercase">Motivasi Aktif</h4>
+                <p class="text-xs font-kanit text-amber-900 mt-1">Meningkatkan motivasi, minat dan penglibatan aktif murid Tahun 1 dalam mengenal pasti serta membezakan kata nama.</p>
+              </div>
+              <div class="bg-sky-50 p-3.5 rounded-2xl border-2 border-sky-400 shadow-sm">
+                <div class="text-2xl mb-1">🎯</div>
+                <h4 class="font-bold text-xs text-sky-950 uppercase">Pengukuhan SP 5.1.1</h4>
+                <p class="text-xs font-kanit text-sky-900 mt-1">Membantu murid menguasai Standard Pembelajaran 5.1.1 mengikut konteks melalui aktiviti pengukuhan berasaskan misi.</p>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (tabKey === 'kemahiran') {
+        body.innerHTML = `
+          <div class="space-y-2.5">
+            <h3 class="text-base font-extrabold text-woodDark flex items-center gap-1.5"><span>🧠</span> KEMAHIRAN YANG DIFOKUSKAN</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div class="bg-white p-3 rounded-2xl border-2 border-blue-400 flex items-start gap-2.5">
+                <span class="text-2xl">📖</span>
+                <div>
+                  <h4 class="font-bold text-xs text-blue-900 uppercase">A. MEMBACA</h4>
+                  <p class="text-xs font-kanit text-slate-700 mt-0.5">Membaca arahan, perkataan, pilihan jawapan dan ayat mudah yang dipaparkan dalam permainan.</p>
+                </div>
+              </div>
+              <div class="bg-white p-3 rounded-2xl border-2 border-emerald-400 flex items-start gap-2.5">
+                <span class="text-2xl">🔍</span>
+                <div>
+                  <h4 class="font-bold text-xs text-emerald-900 uppercase">B. MEMERHATI</h4>
+                  <p class="text-xs font-kanit text-slate-700 mt-0.5">Meneliti gambar dan petunjuk untuk mengenal pasti perkataan Kata Nama Am atau Khas.</p>
+                </div>
+              </div>
+              <div class="bg-white p-3 rounded-2xl border-2 border-purple-400 flex items-start gap-2.5">
+                <span class="text-2xl">🧠</span>
+                <div>
+                  <h4 class="font-bold text-xs text-purple-900 uppercase">C. BERFIKIR</h4>
+                  <p class="text-xs font-kanit text-slate-700 mt-0.5">Membanding beza Kata Nama Am dan Kata Nama Khas berdasarkan maksud, ciri huruf besar dan konteks.</p>
+                </div>
+              </div>
+              <div class="bg-white p-3 rounded-2xl border-2 border-amber-400 flex items-start gap-2.5">
+                <span class="text-2xl">💬</span>
+                <div>
+                  <h4 class="font-bold text-xs text-amber-900 uppercase">D. BERTUTUR</h4>
+                  <p class="text-xs font-kanit text-slate-700 mt-0.5">Menyebut perkataan dengan sebutan yang betul serta menerangkan pilihan jawapan secara lisan.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (tabKey === 'manualTab') {
+        body.innerHTML = `
+          <div class="space-y-1.5 text-xs font-kanit">
+            <h3 class="text-base font-extrabold text-woodDark mb-2">PANDUAN RINGKAS 7 LANGKAH</h3>
+            <div class="p-2 bg-white rounded-xl border border-woodPlank">1. <strong>Mula Permainan:</strong> Tekan Peta Pengembaraan pada skrin utama.</div>
+            <div class="p-2 bg-white rounded-xl border border-woodPlank">2. <strong>Baca dan Perhati:</strong> Teliti perkataan, gambar atau ayat yang dipaparkan.</div>
+            <div class="p-2 bg-white rounded-xl border border-woodPlank">3. <strong>Pilih Jawapan:</strong> Tentukan sama ada AM atau KHAS.</div>
+            <div class="p-2 bg-white rounded-xl border border-woodPlank">4. <strong>Semak Jawapan:</strong> Dapatkan maklum balas segera berserta skor dan bintang.</div>
+            <div class="p-2 bg-white rounded-xl border border-woodPlank">5. <strong>Cuba Lagi:</strong> Jika silap, baca petunjuk Cikgu Rimba dan jawab semula.</div>
+            <div class="p-2 bg-white rounded-xl border border-woodPlank">6. <strong>Capai Matlamat:</strong> Teroka kawasan baharu dan selesaikan Bonus Round.</div>
+            <div class="p-2 bg-white rounded-xl border border-woodPlank">7. <strong>Tewaskan Boss:</strong> Kumpul Permata Bahasa di Istana Rimba!</div>
+          </div>
+        `;
+      }
+    };
+
+    /**
+     * MANUAL PENGGUNA BERGAMBAR LENGKAP (7 LANGKAH)
+     */
+    AdventureApp.prototype.renderManualScreen = function(container) {
+      container.innerHTML = `
+        <div class="w-full max-w-3xl parchment p-4 sm:p-6 shadow-2xl pop-anim">
+          <div class="flex items-center justify-between border-b-2 border-woodPlank pb-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="text-3xl">🗺️</span>
+              <div>
+                <h2 class="text-xl font-extrabold text-woodDark">MANUAL PENGGUNA PENJELAJAH</h2>
+                <p class="text-xs font-kanit text-slate-600 font-semibold">Panduan 7 Langkah Bergambar Murid Tahun 1</p>
+              </div>
+            </div>
+            <button onclick="app.showScreen('home')" class="px-3 py-1.5 rounded-xl bg-woodDark text-amber-300 text-xs font-bold hover:bg-woodPlank transition">
+              🏠 MENU
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 max-h-[55vh] overflow-y-auto pr-1">
+            <div class="bg-white p-3 rounded-2xl border-2 border-amber-400 flex items-start gap-2.5">
+              <span class="w-7 h-7 rounded-xl bg-amber-500 text-white font-bold flex items-center justify-center shrink-0 text-xs">1</span>
+              <div>
+                <h4 class="font-bold text-xs text-woodDark">MULA PERMAINAN</h4>
+                <p class="text-xs font-kanit text-slate-700">Tekan "PETA PENGEMBARAAN" pada halaman utama untuk memilih kawasan terbuka.</p>
+              </div>
+            </div>
+            <div class="bg-white p-3 rounded-2xl border-2 border-blue-400 flex items-start gap-2.5">
+              <span class="w-7 h-7 rounded-xl bg-blue-500 text-white font-bold flex items-center justify-center shrink-0 text-xs">2</span>
+              <div>
+                <h4 class="font-bold text-xs text-woodDark">BACA DAN PERHATI</h4>
+                <p class="text-xs font-kanit text-slate-700">Baca perkataan dan teliti gambar atau ayat yang dipaparkan dengan teliti.</p>
+              </div>
+            </div>
+            <div class="bg-white p-3 rounded-2xl border-2 border-purple-400 flex items-start gap-2.5">
+              <span class="w-7 h-7 rounded-xl bg-purple-500 text-white font-bold flex items-center justify-center shrink-0 text-xs">3</span>
+              <div>
+                <h4 class="font-bold text-xs text-woodDark">PILIH JAWAPAN</h4>
+                <p class="text-xs font-kanit text-slate-700">Pilih antara "KATA NAMA AM" (nama umum) atau "KATA NAMA KHAS" (nama khusus).</p>
+              </div>
+            </div>
+            <div class="bg-white p-3 rounded-2xl border-2 border-emerald-400 flex items-start gap-2.5">
+              <span class="w-7 h-7 rounded-xl bg-emerald-500 text-white font-bold flex items-center justify-center shrink-0 text-xs">4</span>
+              <div>
+                <h4 class="font-bold text-xs text-woodDark">SEMAK JAWAPAN</h4>
+                <p class="text-xs font-kanit text-slate-700">Jika betul, mesej "BETUL! SYABAS!" dipaparkan dan skor bertambah.</p>
+              </div>
+            </div>
+            <div class="bg-white p-3 rounded-2xl border-2 border-rose-400 flex items-start gap-2.5">
+              <span class="w-7 h-7 rounded-xl bg-rose-500 text-white font-bold flex items-center justify-center shrink-0 text-xs">5</span>
+              <div>
+                <h4 class="font-bold text-xs text-woodDark">CUBA LAGI</h4>
+                <p class="text-xs font-kanit text-slate-700">Jika salah, baca petunjuk Cikgu Rimba dan cuba semula soalan yang sama.</p>
+              </div>
+            </div>
+            <div class="bg-white p-3 rounded-2xl border-2 border-teal-400 flex items-start gap-2.5">
+              <span class="w-7 h-7 rounded-xl bg-teal-500 text-white font-bold flex items-center justify-center shrink-0 text-xs">6</span>
+              <div>
+                <h4 class="font-bold text-xs text-woodDark">CAPAI MATLAMAT</h4>
+                <p class="text-xs font-kanit text-slate-700">Buka kawasan baharu, kumpul bintang dan lencana sehingga mahir.</p>
+              </div>
+            </div>
+            <div class="bg-white p-3 rounded-2xl border-2 border-amber-500 flex items-start gap-2.5 md:col-span-2">
+              <span class="w-7 h-7 rounded-xl bg-amber-600 text-white font-bold flex items-center justify-center shrink-0 text-xs">7</span>
+              <div>
+                <h4 class="font-bold text-xs text-woodDark">SELESAIKAN MISI & KUMPUL PERMATA</h4>
+                <p class="text-xs font-kanit text-slate-700">Tewaskan Penjaga Permata di Istana Rimba dan dapatkan ganjaran gelaran Pakar Kata Nama!</p>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="app.showScreen('map')" class="wood-btn w-full py-3 mt-3 text-sm font-bold">
+            🚀 MULAKAN PENGEMBARAAN SEKARANG
+          </button>
+        </div>
+      `;
+    };
+  </script>
+
+  <script>
+    /**
+     * ANIMASI KANVAS LATAR BELAKANG: DEDALU, DAUN GUGUR & KUNANG-KUNANG RIMBA
+     */
+    const canvas = document.getElementById('ambientCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class JungleParticle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = -20 - Math.random() * 50;
+        this.size = Math.random() * 7 + 4;
+        this.speedY = Math.random() * 0.8 + 0.3;
+        this.speedX = Math.sin(Math.random() * Math.PI) * 0.6;
+        this.rotation = Math.random() * Math.PI * 2;
+        this.rotSpeed = (Math.random() - 0.5) * 0.02;
+        this.isFirefly = Math.random() > 0.7;
+        this.opacity = Math.random() * 0.5 + 0.2;
+      }
+      update() {
+        this.y += this.speedY;
+        this.x += Math.sin(this.y * 0.015) * 0.5 + this.speedX;
+        this.rotation += this.rotSpeed;
+        if (this.y > canvas.height + 25) {
+          this.reset();
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        if (this.isFirefly) {
+          ctx.fillStyle = `rgba(251, 191, 36, ${this.opacity * 0.8})`;
+          ctx.beginPath();
+          ctx.arc(0, 0, this.size / 2.2, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.fillStyle = `rgba(74, 222, 128, ${this.opacity * 0.45})`;
+          ctx.beginPath();
+          ctx.ellipse(0, 0, this.size, this.size / 2, 0, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+    }
+
+    for (let i = 0; i < 26; i++) {
+      particles.push(new JungleParticle());
+    }
+
+    function animateAmbient() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateAmbient);
+    }
+    requestAnimationFrame(animateAmbient);
+
+    // Mula aplikasi pada skrin utama
+    window.addEventListener('DOMContentLoaded', () => {
+      app.init();
+    });
+  </script>
+</body>
+</html>
